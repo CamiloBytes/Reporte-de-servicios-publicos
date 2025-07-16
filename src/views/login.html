@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login </title>
+    <title>Login</title>
 </head>
 <body>
     <main>
@@ -14,8 +14,34 @@
             <input type="password" id="password" name="password" required>
             <button type="submit">Login</button>
         </form>
+        <p id="message"></p>
     </main>
 
-    <script type="module" src="../js/login.js"></script>
+    <script type="module">
+        const users = [
+            { email: "user1@example.com", password: "password123" },
+            { email: "user2@example.com", password: "password456" },
+            { email: "user3@example.com", password: "password789" }
+        ];
+
+        document.getElementById('form').addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const messageElement = document.getElementById('message');
+
+            const user = users.find(user => user.email === email && user.password === password);
+
+            if (user) {
+                messageElement.textContent = "Login successful!";
+                messageElement.style.color = "green";
+            } else {
+                messageElement.textContent = "Invalid email or password.";
+                messageElement.style.color = "red";
+            }
+        });
+    </script>
 </body>
 </html>
