@@ -1,40 +1,37 @@
-const emailInput = document.getElementById('email');
-const passwordInput = document.getElementById('password');
-const loginButton = document.getElementById('login-button');
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.querySelector('form');
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
 
-if (loginButton) {
-  loginButton.addEventListener('click', async (event) => {
-    event.preventDefault();
-    
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
     const email = emailInput.value.trim();
     const password = passwordInput.value.trim();
 
     if (!email || !password) {
-      alert('Please fill in both fields.');
+      alert('Por favor completa todos los campos');
       return;
     }
 
     try {
-      const response = await fetch('http://localhost:3000/api/login', { // Updated endpoint
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await fetch('http://localhost:3000/user'); // Cambia si usas un archivo local
+      const usuarios = await response.json();
 
-      if (!response.ok) {
-        throw new Error('Login failed. Please check your credentials.');
+      const usuarioEncontrado = usuarios.find(
+        (user) => user.email === email && user.password === password
+      );
+
+      if (usuarioEncontrado) {
+        alert('Inicio de sesión exitoso');
+        localStorage.setItem('user', JSON.stringify(usuarioEncontrado));
+        // Redirigir a otra página o mostrar contenido
+      } else {
+        alert('Correo o contraseña incorrectos');
       }
-
-      const data = await response.json();
-      console.log('Login successful:', data);
-
-      // Handle successful login (e.g., save token, redirect)
-      alert('Login successful!');
     } catch (error) {
-      console.error('Error during login:', error);
-      alert(error.message);
+      console.error('Error al iniciar sesión:', error);
+      alert('Hubo un problema al intentar iniciar sesión');
     }
   });
-}
+});
