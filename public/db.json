@@ -1,0 +1,32 @@
+{
+  "daños": [
+    {
+      "id": "1",
+      "direccion": "Calle 120#42-129, Los Nogales, Barranquilla",
+      "lat": 10.98765,
+      "lon": -74.77432,
+      "estado": "reparacion"
+    },
+    {
+      "id": "5420",
+      "direccion": "calle 72#45-100, el prado, Barranquilla, Colombia",
+      "lat": 10.998609,
+      "lon": -74.8020426,
+      "estado": "solucionado"
+    },
+    {
+      "id": "fb05",
+      "direccion": "Calle 120#42-129, Alameda, Barranquilla, Colombia",
+      "lat": 10.9909055,
+      "lon": -74.8500627,
+      "estado": "solucionado"
+    },
+    {
+      "id": "635c",
+      "direccion": "Calle 23#17-11, Las Nieves, Barranquilla, Colombia",
+      "lat": 10.9585003,
+      "lon": -74.7785006,
+      "estado": "solucionado"
+    }
+  ]
+}

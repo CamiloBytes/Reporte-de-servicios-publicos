@@ -1,13 +1,35 @@
-<!doctype html>
-<html lang="en">
-  <head>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+    <title>Mapa de Daños</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 500px;
+            margin-top: 10px;
+        }
+
+        .controls input {
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="controls">
+        <input type="text" id="barrio" placeholder="Barrio" onkeyup="capitalizarPrimeraLetra()" />
+        <input type="text" id="direccion" placeholder="Dirección específica" onkeyup="capitalizarPrimeraLetra()" />
+        <button onclick="reportarDanio()">Reportar Daño</button>
+    </div>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script type="module" src="./src/js/mapa.js"></script>
+</body>
+
 </html>
