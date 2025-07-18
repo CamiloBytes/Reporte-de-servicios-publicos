@@ -1,4 +1,26 @@
 {
-  "users": [],
-  "reports": []
+  "users": [
+    {
+      "id": "8986",
+      "name": "keyner barrios",
+      "CC": "1044603308"
+    }
+  ],
+  "reports": [
+    {
+      "id": "1abc",
+      "ccUser": "1044603308",
+      "address": "calle 44",
+      "description": "no tengo luz",
+      "barrio": "buenos aires",
+      "dataTime": {
+        "timeCreateReport": "18/7/2025, 15:15:31"
+      },
+      "status": {
+        "received": true,
+        "process": false,
+        "finalized": false
+      }
+    }
+  ]
 }

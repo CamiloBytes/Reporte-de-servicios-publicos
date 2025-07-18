@@ -31,11 +31,11 @@ async function exportarPDF() {
   const $fullName = document.getElementById("fullName").value.trim();
   const $idNumber = document.getElementById("idNumber").value.trim();
   const $address = document.getElementById("address").value.trim();
-  const $time = document.getElementById("time").value.trim();
+
   const $description = document.getElementById("description").value.trim();
   const $barrio = document.getElementById("barrio").value.trim()
 
-  if ($fullName === "" || $idNumber === "" || $address === "" || $time === "" || $description === "" || $barrio === "") {
+  if ($fullName === "" || $idNumber === "" || $address === "" || $description === "" || $barrio === "") {
     Toast.fire({
       icon: "error",
       title: "Todos los valores son requeridos."
@@ -48,7 +48,6 @@ async function exportarPDF() {
     ["Nombre completo", $fullName],
     ["Número de identificación", $idNumber],
     ["Dirección", $address],
-    ["Hora aproximada del daño", $time],
     ["Descripción", $description],
     ["Barrio", $barrio]
   ];
@@ -66,22 +65,26 @@ async function exportarPDF() {
     styles: { fontSize: 11 },
   });
 
-  const datos = await getApi();
+  const response = await fetch("http://localhost:3000/reports");
+  const datos = await response.json();
 
-  // const userExists = datos.some(element => element.status.fininalizado === false);
-  // if (userExists) {
+  const reportExiste = datos.some(element =>
+    element.ccUser === $idNumber &&
+    element.status?.received === true &&
+    element.status?.finalized === false
+  );
 
-  //   Toast.fire({
-  //     icon: "info",
-  //     title: "El usuario ya tiene un reporte pendiente."
-  //   });
-  //   return;
-  // }
+  if (reportExiste) {
+    Toast.fire({
+      icon: "info",
+      title: "Ya tienes un reporte pendiente."
+    });
+    return;
+  }
   await newUser();
   doc.save(`REPORTE DE ${$fullName.toUpperCase()}`)
   postReport()
   clearInputs()
-
 }
 
 async function newUser() {
@@ -114,7 +117,6 @@ async function newUser() {
 
 async function postReport() {
   const $address = document.getElementById("address").value.trim();
-  const $time = document.getElementById("time").value.trim();
   const $description = document.getElementById("description").value.trim();
   const $barrio = document.getElementById("barrio").value.trim()
   const $idNumber = document.getElementById("idNumber").value.trim();
@@ -124,7 +126,6 @@ async function postReport() {
   const newReport = {
     ccUser: $idNumber,
     address: $address,
-    timeOfDamage: $time,
     description: $description,
     barrio: $barrio,
     dataTime: {
@@ -155,15 +156,14 @@ async function postReport() {
 }
 
 
-function time() {
+function crateTable() {
 
 }
-
 function clearInputs() {
   document.getElementById("fullName").value = "";
   document.getElementById("idNumber").value = "";
   document.getElementById("address").value = "";
-  document.getElementById("time").value = "";
+
   document.getElementById("description").value = "";
   document.getElementById("barrio").value = "";
 
