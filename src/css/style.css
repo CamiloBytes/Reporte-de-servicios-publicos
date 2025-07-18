@@ -5,6 +5,14 @@
     box-sizing: border-box;
 }
 
+a{
+    text-decoration: none;
+    color: #000;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #e3f2fd;
@@ -58,20 +66,29 @@ main {
 .sidebar ul {
     list-style: none;
     margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 .sidebar ul li {
     margin-bottom: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
-.sidebar ul li span {
+.sidebar ul li button {
     background-color: #bbdefb;
     padding: 10px;
     display: block;
-    text-align: center;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s;
+    width: 80%;
+    text-align: center;
 }
 
 .sidebar ul li span:hover {
@@ -129,16 +146,14 @@ thead th {
 tbody td {
     padding: 12px;
     border-bottom: 1px solid #eeeeee;
-    font-weight: 500;
 }
 
 /* ESTADO */
 .badge {
-    padding: 6px 12px;
+    padding: 3% 4%;
     border-radius: 8px;
     color: white;
     font-weight: bold;
-    display: inline-block;
     text-align: center;
 }
 
