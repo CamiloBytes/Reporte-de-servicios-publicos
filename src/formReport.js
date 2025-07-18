@@ -13,16 +13,13 @@ const Toast = Swal.mixin({
   }
 });
 
+getBarrios()
+
 $btnCreate.addEventListener("click", function (e) {
   e.preventDefault()
   exportarPDF()
 })
 
-async function getApi() {
-  let resp = await fetch("http://localhost:3000/users")
-  let dat = await resp.json()
-  return dat
-}
 
 async function exportarPDF() {
   const { jsPDF } = window.jspdf;
@@ -65,19 +62,20 @@ async function exportarPDF() {
     styles: { fontSize: 11 },
   });
 
+
   const response = await fetch("http://localhost:3000/reports");
   const datos = await response.json();
 
-  const reportExiste = datos.some(element =>
-    element.ccUser === $idNumber &&
-    element.status?.received === true &&
-    element.status?.finalized === false
+  const reportExists = datos.some(report =>
+    report.ccUser === $idNumber &&
+    report.statu != "resuelto"
+    // report.status?.finalized === false
   );
 
-  if (reportExiste) {
+  if (reportExists) {
     Toast.fire({
       icon: "info",
-      title: "Ya tienes un reporte pendiente."
+      title: "Ya tienes un reporte pendiente espera a que sea resuelto."
     });
     return;
   }
@@ -114,7 +112,6 @@ async function newUser() {
 
 }
 
-
 async function postReport() {
   const $address = document.getElementById("address").value.trim();
   const $description = document.getElementById("description").value.trim();
@@ -131,13 +128,8 @@ async function postReport() {
     dataTime: {
       timeCreateReport: hora,
     },
-    status: {
-      received: true,
-      process: false,
-      finalized: false
-    }
+    statu: "recibido"
   };
-
   try {
     let response = await fetch("http://localhost:3000/reports", {
       method: "POST",
@@ -156,14 +148,44 @@ async function postReport() {
 }
 
 
-function crateTable() {
 
+function getBarrios() {
+  fetch("http://localhost:3000/barrios")
+    .then(response => {
+      if (!response.ok) throw new Error("No se pudo cargar la lista de barrios");
+      return response.json();
+    })
+    .then(barrios => {
+      const select = document.getElementById("barrio");
+      select.innerHTML = ""; 
+
+      const defaultOption = document.createElement("option");
+      defaultOption.textContent = "Seleccione un barrio";
+      defaultOption.disabled = true;
+      defaultOption.selected = true;
+      select.appendChild(defaultOption);
+
+      if (!Array.isArray(barrios)) throw new Error("Formato de datos inválido");
+
+      barrios.sort((a, b) => a.localeCompare(b));
+
+      barrios.forEach(barrio => {
+        const option = document.createElement("option");
+        option.value = barrio;
+        option.textContent = barrio;
+        select.appendChild(option);
+      });
+    })
+    .catch(error => {
+      console.error("Error al cargar barrios:", error);
+    });
 }
+
+
 function clearInputs() {
   document.getElementById("fullName").value = "";
   document.getElementById("idNumber").value = "";
   document.getElementById("address").value = "";
-
   document.getElementById("description").value = "";
   document.getElementById("barrio").value = "";
 

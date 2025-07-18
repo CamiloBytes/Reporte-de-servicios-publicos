@@ -37,7 +37,7 @@ label {
   margin-bottom: 5px;
 }
 
-#time {
+#time,#barrio {
   background-color: #c8dcff;
   border: none;
   padding: 10px;
