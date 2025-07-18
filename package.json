@@ -10,5 +10,9 @@
   },
   "devDependencies": {
     "vite": "^7.0.4"
+  },
+  "dependencies": {
+    "chart": "^0.1.2",
+    "chart.js": "^4.5.0"
   }
 }

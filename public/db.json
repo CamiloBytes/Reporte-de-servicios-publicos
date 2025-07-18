@@ -1,0 +1,17 @@
+{
+    "solicitudes" : [
+        {
+            "cedula" : "1234",
+            "estado" : {
+                "recibido" : true,
+                "proceso" : false,
+                "finalizado" : false
+            },
+            "fecha" : {
+                "recibido" : "fecha1",
+                "proceso" : "fecha2",
+                "finalizado" : "fecha3"
+            }
+        }
+    ]
+}
