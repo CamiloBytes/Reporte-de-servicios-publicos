@@ -15,9 +15,8 @@
     <nav>
       <div class="nav-links-container">
         <ul class="nav-links">
-          <li><a  href="#">Inicio</a></li>
-          <li><a href="#">Servicios</a></li>
-          <li><a href="#">Contacto</a></li>
+          <button onclick="goToHome()" class="btn-login" id="btn-login">Inicio</button>
+          <button onclick="goToForm()" class="btn-login" id="btn-login">Formulario</button>
         </ul>
       </div>
     </nav>
@@ -28,18 +27,14 @@
       <form action="">
           <input type="email" name="" id="email" placeholder="Correo">
           <input type="password" name="" id="password" placeholder="Contraseña">
-          <button type="submit">Enviar</button>
+          <button class="hero-button" type="submit">Enviar</button>
       </form>
     </div>
   </main>
 
-  <footer>
+  <footer class="footer">
     <p>&copy; 2023 Mi Empresa. Todos los derechos reservados.</p>
-    <ul class="social-links">0
-      <li><a href="#">Facebook</a></li>
-      <li><a href="#">Twitter</a></li>
-      <li><a href="#">Instagram</a></li>
-    </ul>
   </footer>
+  <script type="module" src="../js/main.js"></script>
 </body>
 </html>
