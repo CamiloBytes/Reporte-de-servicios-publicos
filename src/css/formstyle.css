@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+
+body {
+  margin: 0;
+  font-family: "Zen Dots", sans-serif;
+  background-color: #fafafa;
+}
+
+.header {
+  background-color: #c6b9f4;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.form-container {
+  background-color: #e9f8ff;
+  border: 5px solid #b1ccfd;
+  max-width: 400px;
+  margin: 130px auto;
+  padding: 30px 20px;
+  border-radius: 8px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+#time,#barrio {
+  background-color: #c8dcff;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+input[type="text"],
+textarea {
+  background-color: #c8dcff;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+textarea {
+  resize: none;
+}
+
+button {
+  background-color: #c6b9f4;
+  border: none;
+  padding: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #b2a4e0;
+}

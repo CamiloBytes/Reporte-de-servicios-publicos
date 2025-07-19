@@ -1,9 +1,50 @@
 {
-    "user": [
+    "users": [
         {
             "id": 1,
             "email": "exaple@example.com",
             "password": "12345678"
         }
+    ],
+    "reports": [],
+    "barrios": [
+        "El Prado",
+        "Alto Prado",
+        "Ciudad Jardín",
+        "Villa Carolina",
+        "Riomar",
+        "La Campiña",
+        "Miramar",
+        "Villa Santos",
+        "Boston",
+        "Lucero",
+        "Los Andes",
+        "Las Delicias",
+        "Los Nogales",
+        "San Isidro",
+        "El Recreo",
+        "La Concepción",
+        "Los Robles",
+        "Ciudadela 20 de Julio",
+        "Siete de Abril",
+        "Carrizal",
+        "El Bosque",
+        "La Sierrita",
+        "San Roque",
+        "Rebolo",
+        "Montecristo",
+        "Centro",
+        "La Luz",
+        "Simón Bolívar",
+        "Las Nieves",
+        "Las Malvinas",
+        "La Playa",
+        "La Pradera",
+        "Buena Esperanza",
+        "Loma Fresca",
+        "El Ferry",
+        "Pumarejo",
+        "Villa Estadio",
+        "Soledad 2000"
     ]
 }
