@@ -1,4 +1,20 @@
-/* Reset and base styles */
+:root {
+    --primary-blue: #1565c0;
+    --light-blue: #2196f3;
+    --hover-blue: #68a7da;
+    --brand-white: #eaf6ea;
+    --soft-gray: #f1f1f1;
+    --text-dark: #333;
+    --focus-glow: #c4d9ff;
+    --highlight-green: #4caf50;
+    --background-dark: #121212;
+    --background-light: #f5f5f5;
+    --background-gray: #f0f0f0;
+    --background-gradient: linear-gradient(135deg, #f0f0f0)
+    --background-light: #fbfbfb;
+}
+
+/* ===== RESET Y BASE ===== */
 * {
     margin: 0;
     padding: 0;
@@ -7,52 +23,130 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #FBFBFB 0%, #dbdbdb 100%);
-    color: #333;
+    background: linear-gradient(135deg, var(--background-light) 0%, #dbdbdb 100%);
+    color: var(--text-dark);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-header {
+/* ===== HEADER ===== */
+header,
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 40px;
-    background-color: #C5BAFF;
-    color: #fff;
+    background-color: var(--primary-blue);
+    color: var(--brand-white);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
-.logo img {
+.logo,
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo img,
+.logo-container img,
+.logo-container .logo {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    border: 2px solid #fff;
+    border: 2px solid var(--brand-white);
 }
 
-nav ul {
+.brand-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--brand-white);
+}
+
+.nav-links-container {
     display: flex;
+}
+
+.nav-links {
     list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
 }
 
-nav ul li {
-    margin: 0 20px;
+.nav-links li {
+    display: flex;
 }
 
-nav ul li a {
-    color: #fff;
+/* ===== BOTONES ===== */
+.button,
+.hero-button,
+.btn-login {
+    padding: 12px 24px;
+    background-color: var(--light-blue);
+    color: var(--brand-white);
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s ease;
     text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.button:hover,
+.hero-button:hover,
+.btn-login:hover {
+    background-color: var(--hover-blue);
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/city-bg.jpg');
+    /* Cambia según tu imagen */
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.5);
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: var(--brand-white);
+    padding: 20px;
+}
+
+.hero-paragraph {
+    font-size: 2rem;
+    margin-bottom: 30px;
     font-weight: 600;
-    font-size: 1.1rem;
-    transition: color 0.3s ease;
 }
 
-nav ul li a:hover {
-    color: #ffdd57;
-    text-decoration: underline;
+.highlight-green {
+    color: var(--highlight-green);
 }
 
+/* ===== MAIN CONTENT - Para páginas sin hero ===== */
 main {
     flex: 1;
     display: flex;
@@ -61,6 +155,13 @@ main {
     padding: 40px 20px;
 }
 
+/* Para páginas con hero, main no debe tener flex */
+body:has(.hero) main {
+    display: block;
+    padding: 0;
+}
+
+/* ===== FORMULARIO LOGIN / REGISTRO ===== */
 .inputs-container {
     background: #fff;
     padding: 40px 50px;
@@ -74,16 +175,16 @@ main {
 .inputs-container h2 {
     margin-bottom: 25px;
     font-size: 2rem;
-    color: #222;
+    color: var(--text-dark);
     font-weight: 700;
 }
 
-main form {
+form {
     display: flex;
     flex-direction: column;
 }
 
-main form input {
+form input {
     padding: 15px 12px;
     margin-bottom: 20px;
     border: 2px solid #ddd;
@@ -92,28 +193,13 @@ main form input {
     transition: border-color 0.3s ease;
 }
 
-main form input:focus {
-    border-color: #C4D9FF;
+form input:focus {
+    border-color: var(--focus-glow);
     outline: none;
-    box-shadow: 0 0 8px #C4D9FF;
+    box-shadow: 0 0 8px var(--focus-glow);
 }
 
-main form button {
-    padding: 15px 0;
-    background: #6b73ff;
-    color: white;
-    font-weight: 700;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-main form button:hover {
-    background: #C4D9FF;
-}
-
+/* ===== MENSAJES LOGIN ===== */
 .login-message {
     margin-top: 15px;
     font-weight: 600;
@@ -129,16 +215,20 @@ main form button:hover {
     color: #188038;
 }
 
-footer {
+/* ===== FOOTER ===== */
+
+
+.footer {
     background-color: rgba(0, 0, 0, 0.7);
-    color: #fff;
+    color: var(--brand-white);
     text-align: center;
     padding: 15px 20px;
     font-size: 0.9rem;
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
+    margin-top: auto;
 }
 
-footer ul.social-links {
+footer .social-links {
     margin-top: 10px;
     list-style: none;
     display: flex;
@@ -147,13 +237,125 @@ footer ul.social-links {
     padding: 0;
 }
 
-footer ul.social-links li a {
-    color: #fff;
+.footer .social-links {
+    margin-top: 10px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 0;
+}
+
+footer .social-links li a {
+    color: var(--brand-white);
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease;
 }
 
-footer ul.social-links li a:hover {
+.footer .social-links li a {
+    color: var(--brand-white);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+footer .social-links li a:hover {
     color: #ffdd57;
+}
+
+.footer .social-links li a:hover {
+    color: #ffdd57;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 1366px) and (min-width: 1024px) {
+    .header,
+    header {
+        padding: 12px 30px;
+    }
+
+    .button,
+    .btn-login {
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 991px) {
+    header,
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .inputs-container {
+        padding: 30px 30px;
+    }
+
+    .hero-paragraph {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo img,
+    .logo-container img,
+    .logo-container .logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .button,
+    .hero-button,
+    .btn-login {
+        padding: 10px 18px;
+        font-size: 0.95rem;
+    }
+
+    .inputs-container h2 {
+        font-size: 1.7rem;
+    }
+
+    footer {
+        font-size: 0.8rem;
+    }
+    
+    .footer {
+        font-size: 0.8rem;
+    }
+
+    .hero-paragraph {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .button,
+    .hero-button,
+    .btn-login {
+        width: 100%;
+    }
+
+    .inputs-container {
+        padding: 20px;
+    }
+
+    .inputs-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        gap: 10px;
+    }
+
+    .hero-paragraph {
+        font-size: 1.1rem;
+    }
 }

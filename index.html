@@ -1,12 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AlertFixer</title>
+    <link rel="stylesheet" href="./src/css/styles.css" />
+    <script src="https://kit.fontawesome.com/f40deb3a61.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
-    <a href="./src/views/login.html">login</a>
-    
+    <header class="header">
+        <div class="logo-container">
+            <img src="./src/img/iconic-removebg-preview.png" class="logo" alt="AlertFixer logo" />
+            <strong class="brand-name">AlertFixer</strong>
+        </div>
+        <button onclick="irAlLogin()" class="btn-login" id="btn-login">Iniciar Sesión</button>
+
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-background"></div>
+            <div class="hero-content">
+                <p class="hero-paragraph">
+                    Tu voz, sin<span class="highlight-green">costo.</span> Tus quejas, con <span
+                        class="highlight-green">impacto.</span>
+                </p>
+
+                <button class="hero-button">Solicitar Servicio</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 AlertFixer. Todos los derechos reservados.</p>
+    </footer>
+    <script type="module" src="./src/js/main.js"></script>
 </body>
+
 </html>
