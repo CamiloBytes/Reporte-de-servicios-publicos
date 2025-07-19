@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
-    <link rel="stylesheet" href="../css/styles.css">
-    <title>Zona de reporte</title>
+    <link rel="stylesheet" href="../css/auth-forms-styles.css">
+    <title>AlertFixer - Formulario de Reporte</title>
 </head>
 
 <body>
@@ -19,6 +19,14 @@
                 <img src="../img/iconic-removebg-preview.png" alt="Logo" /> 
             </div>
             <h1>FORMULARIO DE REPORTE</h1>
+            <nav>
+                <div class="nav-links-container">
+                    <ul class="nav-links">
+                        <li><button onclick="goToHome()" class="btn-login">Inicio</button></li>
+                        <li><button onclick="goToLogin()" class="btn-login">Login</button></li>
+                    </ul>
+                </div>
+            </nav>
         </header>
 
         <main>
@@ -49,7 +57,7 @@
         <footer class="footer">
             <p>&copy; 2025 AlertFixer. Todos los derechos reservados.</p>
         </footer>
-        <script type="module" src="./src/formReport.js"></script>
+        <script type="module" src="../js/main.js"></script>
     </body>
 
 </html>

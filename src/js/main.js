@@ -1,15 +1,32 @@
 // Esta función la hacemos global para que el HTML pueda usarla con onclick=""
 window.goToLogin = function () {
     // Redirige a la vista de login
-    window.location.href = "/src/views/login.html";
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('/views/')) {
+        window.location.href = "login.html";
+    } else {
+        window.location.href = "./src/views/login.html";
+    }
 }
+
 // Esta función la hacemos global para que el HTML pueda usarla con onclick=""
 window.goToHome = function () {
     // Redirige a la vista de home
-    window.location.href = "../../index.html";
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('/views/')) {
+        window.location.href = "../../index.html";
+    } else {
+        window.location.href = "./index.html";
+    }
 }
+
 // Esta función la hacemos global para que el HTML pueda usarla con onclick=""
 window.goToForm = function () {
     // Redirige a la vista del formulario
-    window.location.href = "/src/views/form.html";
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('/views/')) {
+        window.location.href = "form.html";
+    } else {
+        window.location.href = "./src/views/form.html";
+    }
 }
