@@ -1,4 +1,4 @@
-import Swal from "sweetalert2"
+// import Swal from "sweetalert2"
 
 // Esta función la hacemos global para que el HTML pueda usarla con onclick=""
 window.goToLogin = function () {
@@ -25,17 +25,17 @@ window.goToHome = function () {
 
 const $btnCreate = document.getElementById("btn-create")
 
-const Toast = Swal.mixin({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-        toast.onmouseenter = Swal.stopTimer;
-        toast.onmouseleave = Swal.resumeTimer;
-    }
-});
+// const Toast = Swal.mixin({
+//     toast: true,
+//     position: "top-end",
+//     showConfirmButton: false,
+//     timer: 3000,
+//     timerProgressBar: true,
+//     didOpen: (toast) => {
+//         toast.onmouseenter = Swal.stopTimer;
+//         toast.onmouseleave = Swal.resumeTimer;
+//     }
+// });
 
 getBarrios()
 
