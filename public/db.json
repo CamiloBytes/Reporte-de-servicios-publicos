@@ -1,50 +1,181 @@
 {
-    "users": [
-        {
-            "id": 1,
-            "email": "exaple@example.com",
-            "password": "12345678"
-        }
-    ],
-    "reports": [],
-    "barrios": [
-        "El Prado",
-        "Alto Prado",
-        "Ciudad Jardín",
-        "Villa Carolina",
-        "Riomar",
-        "La Campiña",
-        "Miramar",
-        "Villa Santos",
-        "Boston",
-        "Lucero",
-        "Los Andes",
-        "Las Delicias",
-        "Los Nogales",
-        "San Isidro",
-        "El Recreo",
-        "La Concepción",
-        "Los Robles",
-        "Ciudadela 20 de Julio",
-        "Siete de Abril",
-        "Carrizal",
-        "El Bosque",
-        "La Sierrita",
-        "San Roque",
-        "Rebolo",
-        "Montecristo",
-        "Centro",
-        "La Luz",
-        "Simón Bolívar",
-        "Las Nieves",
-        "Las Malvinas",
-        "La Playa",
-        "La Pradera",
-        "Buena Esperanza",
-        "Loma Fresca",
-        "El Ferry",
-        "Pumarejo",
-        "Villa Estadio",
-        "Soledad 2000"
-    ]
+  "users": [
+    {
+      "id": "1",
+      "email": "exaple@example.com",
+      "password": "12345678"
+    },
+    {
+      "id": "14fc",
+      "name": "1",
+      "CC": "11121"
+    }
+  ],
+  "reports": [
+    {
+      "id": "44fe",
+      "ccUser": "11121",
+      "address": "12",
+      "description": "1",
+      "barrio": "2",
+      "dataTime": {
+        "timeCreateReport": "7/21/2025, 4:12:38 PM"
+      },
+      "statu": "recibido"
+    }
+  ],
+  "barrios": [
+    {
+      "id": "1",
+      "nombre": "El Prado"
+    },
+    {
+      "id": "2",
+      "nombre": "Alto Prado"
+    },
+    {
+      "id": "3",
+      "nombre": "Ciudad Jardín"
+    },
+    {
+      "id": "4",
+      "nombre": "Villa Carolina"
+    },
+    {
+      "id": "5",
+      "nombre": "Riomar"
+    },
+    {
+      "id": "6",
+      "nombre": "La Campiña"
+    },
+    {
+      "id": "7",
+      "nombre": "Miramar"
+    },
+    {
+      "id": "8",
+      "nombre": "Villa Santos"
+    },
+    {
+      "id": "9",
+      "nombre": "Boston"
+    },
+    {
+      "id": "10",
+      "nombre": "Lucero"
+    },
+    {
+      "id": "11",
+      "nombre": "Los Andes"
+    },
+    {
+      "id": "12",
+      "nombre": "Las Delicias"
+    },
+    {
+      "id": "13",
+      "nombre": "Los Nogales"
+    },
+    {
+      "id": "14",
+      "nombre": "San Isidro"
+    },
+    {
+      "id": "15",
+      "nombre": "El Recreo"
+    },
+    {
+      "id": "16",
+      "nombre": "La Concepción"
+    },
+    {
+      "id": "17",
+      "nombre": "Los Robles"
+    },
+    {
+      "id": "18",
+      "nombre": "Ciudadela 20 de Julio"
+    },
+    {
+      "id": "19",
+      "nombre": "Siete de Abril"
+    },
+    {
+      "id": "20",
+      "nombre": "Carrizal"
+    },
+    {
+      "id": "21",
+      "nombre": "El Bosque"
+    },
+    {
+      "id": "22",
+      "nombre": "La Sierrita"
+    },
+    {
+      "id": "23",
+      "nombre": "San Roque"
+    },
+    {
+      "id": "24",
+      "nombre": "Rebolo"
+    },
+    {
+      "id": "25",
+      "nombre": "Montecristo"
+    },
+    {
+      "id": "26",
+      "nombre": "Centro"
+    },
+    {
+      "id": "27",
+      "nombre": "La Luz"
+    },
+    {
+      "id": "28",
+      "nombre": "Simón Bolívar"
+    },
+    {
+      "id": "29",
+      "nombre": "Las Nieves"
+    },
+    {
+      "id": "30",
+      "nombre": "Las Malvinas"
+    },
+    {
+      "id": "31",
+      "nombre": "La Playa"
+    },
+    {
+      "id": "32",
+      "nombre": "La Pradera"
+    },
+    {
+      "id": "33",
+      "nombre": "Buena Esperanza"
+    },
+    {
+      "id": "34",
+      "nombre": "Loma Fresca"
+    },
+    {
+      "id": "35",
+      "nombre": "El Ferry"
+    },
+    {
+      "id": "36",
+      "nombre": "Pumarejo"
+    },
+    {
+      "id": "37",
+      "nombre": "Villa Estadio"
+    },
+    {
+      "id": "38",
+      "nombre": "Soledad 2000"
+    }
+  ]
 }
