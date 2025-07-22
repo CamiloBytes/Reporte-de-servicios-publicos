@@ -13,13 +13,11 @@ const Toast = Swal.mixin({
   }
 });
 
-getBarrios()
 
 $btnCreate.addEventListener("click", function (e) {
   e.preventDefault()
   exportarPDF()
 })
-
 
 async function exportarPDF() {
   const { jsPDF } = window.jspdf;
@@ -147,8 +145,6 @@ async function postReport() {
   }
 }
 
-
-
 function getBarrios() {
   fetch("http://localhost:3000/barrios")
     .then(response => {
@@ -157,8 +153,8 @@ function getBarrios() {
     })
     .then(barrios => {
       const select = document.getElementById("barrio");
-      select.innerHTML = ""; 
-
+      select.innerHTML = "";
+      
       const defaultOption = document.createElement("option");
       defaultOption.textContent = "Seleccione un barrio";
       defaultOption.disabled = true;
@@ -181,6 +177,7 @@ function getBarrios() {
     });
 }
 
+getBarrios()
 
 function clearInputs() {
   document.getElementById("fullName").value = "";

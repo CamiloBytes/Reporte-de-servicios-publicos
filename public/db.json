@@ -1,6 +1,24 @@
 {
-  "users": [],
-  "reports": [],
+  "users": [
+    {
+      "id": "e2f1",
+      "name": "yessica andrea",
+      "CC": "1044603308"
+    }
+  ],
+  "reports": [
+    {
+      "id": "0a6e",
+      "ccUser": "1044603308",
+      "address": "carrera 44",
+      "description": "hola",
+      "barrio": "Boston",
+      "dataTime": {
+        "timeCreateReport": "22/7/2025, 15:10:52"
+      },
+      "statu": "recibido"
+    }
+  ],
   "barrios": [
     "El Prado",
     "Alto Prado",
@@ -39,6 +57,7 @@
     "El Ferry",
     "Pumarejo",
     "Villa Estadio",
-    "Soledad 2000"
+    "Soledad 2000",
+    "Buenos Aires"
   ]
 }
