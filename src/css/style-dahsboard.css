@@ -131,6 +131,7 @@ table {
 thead {
     background-color: #2196f3;
     color: #ffffff;
+    width: 100%;
 }
 
 thead th {
@@ -175,7 +176,7 @@ tbody td {
 }
 
 #map {
-    height: 500px;
+    height: 65vh;
     width: 100%;
     border-radius: 10px;
 }

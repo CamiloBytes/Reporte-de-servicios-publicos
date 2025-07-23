@@ -33,8 +33,7 @@ body {
 /* Body styles específicos para página principal con background image */
 body.main-page {
     font-family: Arial, sans-serif;
-    background-color: #f1f1f1;
-    background-image: url(servicios-publicos-martha.jpg);
+    background-image: url("../img/fondo.webp");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
