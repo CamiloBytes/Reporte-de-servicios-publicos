@@ -1,17 +1,6 @@
+import Swal from "sweetalert2"
 
-import { alertError, alertInfo } from "./alert";
-const $btnCreate = document.getElementById("btn-create")
-
-window.goToHome = function () {
-    // Redirige a la vista de home
-    const currentPath = window.location.pathname;
-    if (currentPath.includes('/views/')) {
-        window.location.href = "../../index.html";
-    } else {
-        window.location.href = "./index.html";
-    }
-}
-
+// Esta función la hacemos global para que el HTML pueda usarla con onclick=""
 window.goToLogin = function () {
     // Redirige a la vista de login
     const currentPath = window.location.pathname;
@@ -22,10 +11,39 @@ window.goToLogin = function () {
     }
 }
 
+// Esta función la hacemos global para que el HTML pueda usarla con onclick=""
+window.goToHome = function () {
+    // Redirige a la vista de home
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('/views/')) {
+        window.location.href = "../../index.html";
+    } else {
+        window.location.href = "./index.html";
+    }
+}
+
+
+const $btnCreate = document.getElementById("btn-create")
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+    }
+});
+
+getBarrios()
+
 $btnCreate.addEventListener("click", function (e) {
     e.preventDefault()
     exportarPDF()
 })
+
 
 async function exportarPDF() {
     const { jsPDF } = window.jspdf;
@@ -39,7 +57,10 @@ async function exportarPDF() {
     const $barrio = document.getElementById("barrio").value.trim()
 
     if ($fullName === "" || $idNumber === "" || $address === "" || $description === "" || $barrio === "") {
-        alertError("Todos los valores son requeridos.")
+        Toast.fire({
+            icon: "error",
+            title: "Todos los valores son requeridos."
+        });
         return;
     }
 
@@ -71,14 +92,16 @@ async function exportarPDF() {
 
     const reportExists = datos.some(report =>
         report.ccUser === $idNumber &&
-        report.statu != "resuelto"
+        report.status != "resuelto"
         // report.status?.finalized === false
     );
 
     if (reportExists) {
-        alertInfo("Ya tienes un reporte pendiente espera a que sea resuelto.")
+        Toast.fire({
+            icon: "info",
+            title: "Ya tienes un reporte pendiente espera a que sea resuelto."
+        });
         return;
-        
     }
     await newUser();
     doc.save(`REPORTE DE ${$fullName.toUpperCase()}`)
@@ -120,8 +143,31 @@ async function postReport() {
     const $idNumber = document.getElementById("idNumber").value.trim();
     const fecha = new Date();
     const hora = fecha.toLocaleString()
+    const commonId = crypto.randomUUID();
+    const direccionCompleta = `${$address}, ${$barrio}, Colombia`;
+    let lat = null;
+    let lon = null;
+    try {
+        const geoRes = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccionCompleta)}`, {
+            headers: {
+                'User-Agent': 'tu-app/1.0' // obligatorio para Nominatim
+            }
+        });
 
+        const geoData = await geoRes.json();
+        if (geoData.length > 0) {
+            lat = parseFloat(geoData[0].lat);
+            lon = parseFloat(geoData[0].lon);
+        } else {
+            alert("No se pudo encontrar la ubicación. Verifica la dirección.");
+            return;
+        }
+    } catch (geoError) {
+        console.error("Error al obtener coordenadas:", geoError);
+        return;
+    }
     const newReport = {
+        id: commonId,
         ccUser: $idNumber,
         address: $address,
         description: $description,
@@ -129,8 +175,18 @@ async function postReport() {
         dataTime: {
             timeCreateReport: hora,
         },
-        statu: "recibido"
+        status: "recibido"
     };
+
+    
+    const newDamage = {
+        id: commonId,
+        ccUser: $idNumber,
+        address: $address,
+        lat: lat,
+        lon: lon,
+        status: "recibido"
+    }
     try {
         let response = await fetch("http://localhost:3000/reports", {
             method: "POST",
@@ -140,7 +196,14 @@ async function postReport() {
             body: JSON.stringify(newReport)
 
         })
-        if (!response.ok) {
+        let response2 = await fetch("http://localhost:3000/damage", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newDamage)
+        })
+        if (!response.ok || !response2.ok) {
             throw new Error("Error en la petición POST")
         }
     } catch (error) {
@@ -148,13 +211,14 @@ async function postReport() {
     }
 }
 
+
 function getBarrios() {
     fetch("http://localhost:3000/barrios")
         .then(response => {
             if (!response.ok) throw new Error("No se pudo cargar la lista de barrios");
             return response.json();
         })
-        .then(barrios => {
+        .then((barrios) => {
             const select = document.getElementById("barrio");
             select.innerHTML = "";
 
@@ -168,9 +232,9 @@ function getBarrios() {
 
             barrios.sort((a, b) => a.localeCompare(b));
 
-            barrios.forEach(barrio => {
+            barrios.forEach((barrio) => {
                 const option = document.createElement("option");
-                option.value = barrio;
+                option.value = barrio; // Podés usar .nombre si querés
                 option.textContent = barrio;
                 select.appendChild(option);
             });

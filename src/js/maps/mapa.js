@@ -92,8 +92,8 @@ window.reportarDanio = async function () {
 
 //  Agregar marcador
 function agregarMarcador(danio) {
-    const { lat, lon, direccion, estado, id } = danio
-    const color = ESTADOS[estado]
+    const { lat, lon, address, status, id } = danio
+    const color = ESTADOS[status]
 
     const circulo = L.circle([lat, lon], {
         color,
@@ -103,11 +103,11 @@ function agregarMarcador(danio) {
     }).addTo(map)
 
     circulo.bindPopup(`
-    <b>${direccion}</b><br>
-    Estado: <strong>${estado}</strong><br>
+    <b>${address}</b><br>
+    Estado: <strong>${status}</strong><br>
     <button onclick="cambiarEstado('${id}', '${lat}', '${lon}', 'reparacion')">En reparación</button>
     <button onclick="cambiarEstado('${id}', '${lat}', '${lon}', 'solucionado')">Solucionado</button>
-  `)
+    `)
 
     marcadores[id] = circulo
 }
