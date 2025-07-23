@@ -1,17 +1,7 @@
-// import Swal from "sweetalert2"
 
-// Esta función la hacemos global para que el HTML pueda usarla con onclick=""
-window.goToLogin = function () {
-    // Redirige a la vista de login
-    const currentPath = window.location.pathname;
-    if (currentPath.includes('/views/')) {
-        window.location.href = "login.html";
-    } else {
-        window.location.href = "./src/views/login.html";
-    }
-}
+import { alertError, alertInfo } from "./alert";
+const $btnCreate = document.getElementById("btn-create")
 
-// Esta función la hacemos global para que el HTML pueda usarla con onclick=""
 window.goToHome = function () {
     // Redirige a la vista de home
     const currentPath = window.location.pathname;
@@ -22,28 +12,20 @@ window.goToHome = function () {
     }
 }
 
-
-const $btnCreate = document.getElementById("btn-create")
-
-// const Toast = Swal.mixin({
-//     toast: true,
-//     position: "top-end",
-//     showConfirmButton: false,
-//     timer: 3000,
-//     timerProgressBar: true,
-//     didOpen: (toast) => {
-//         toast.onmouseenter = Swal.stopTimer;
-//         toast.onmouseleave = Swal.resumeTimer;
-//     }
-// });
-
-getBarrios()
+window.goToLogin = function () {
+    // Redirige a la vista de login
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('/views/')) {
+        window.location.href = "login.html";
+    } else {
+        window.location.href = "./src/views/login.html";
+    }
+}
 
 $btnCreate.addEventListener("click", function (e) {
     e.preventDefault()
     exportarPDF()
 })
-
 
 async function exportarPDF() {
     const { jsPDF } = window.jspdf;
@@ -57,10 +39,7 @@ async function exportarPDF() {
     const $barrio = document.getElementById("barrio").value.trim()
 
     if ($fullName === "" || $idNumber === "" || $address === "" || $description === "" || $barrio === "") {
-        Toast.fire({
-            icon: "error",
-            title: "Todos los valores son requeridos."
-        });
+        alertError("Todos los valores son requeridos.")
         return;
     }
 
@@ -97,11 +76,9 @@ async function exportarPDF() {
     );
 
     if (reportExists) {
-        Toast.fire({
-            icon: "info",
-            title: "Ya tienes un reporte pendiente espera a que sea resuelto."
-        });
+        alertInfo("Ya tienes un reporte pendiente espera a que sea resuelto.")
         return;
+        
     }
     await newUser();
     doc.save(`REPORTE DE ${$fullName.toUpperCase()}`)
@@ -171,15 +148,13 @@ async function postReport() {
     }
 }
 
-
-
 function getBarrios() {
     fetch("http://localhost:3000/barrios")
         .then(response => {
             if (!response.ok) throw new Error("No se pudo cargar la lista de barrios");
             return response.json();
         })
-        .then((barrios) => {
+        .then(barrios => {
             const select = document.getElementById("barrio");
             select.innerHTML = "";
 
@@ -189,13 +164,14 @@ function getBarrios() {
             defaultOption.selected = true;
             select.appendChild(defaultOption);
 
-            // Ordenamos por nombre
-            barrios.sort((a, b) => a.nombre.localeCompare(b.nombre));
+            if (!Array.isArray(barrios)) throw new Error("Formato de datos inválido");
 
-            barrios.forEach((barrio) => {
+            barrios.sort((a, b) => a.localeCompare(b));
+
+            barrios.forEach(barrio => {
                 const option = document.createElement("option");
-                option.value = barrio.id; // Podés usar .nombre si querés
-                option.textContent = barrio.nombre;
+                option.value = barrio;
+                option.textContent = barrio;
                 select.appendChild(option);
             });
         })
@@ -204,7 +180,7 @@ function getBarrios() {
         });
 }
 
-
+getBarrios()
 
 function clearInputs() {
     document.getElementById("fullName").value = "";

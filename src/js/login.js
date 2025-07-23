@@ -1,37 +1,46 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const form = document.querySelector("form")
-    const emailInput = document.getElementById("email")
-    const passwordInput = document.getElementById("password")
+import { alertError } from "./alert.js"
+import { authentication } from "./auth.js"
 
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault()
+window.goToHome = function () {
+    // Redirige a la vista de home
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('/views/')) {
+        window.location.href = "../../index.html";
+    } else {
+        window.location.href = "./index.html";
+    }
+}
 
-        const email = emailInput.value.trim()
-        const password = passwordInput.value.trim()
+window.goToForm = function () {
+    // Redirige a la vista del formulario
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('/views/')) {
+        window.location.href = "form.html";
+    } else {
+        window.location.href = "./src/views/form.html";
+    }
+}
 
-        if (!email || !password) {
-            alert("Por favor completa todos los campos")
-            return
-        }
+document.getElementById("login-form").onsubmit = async event => {
+    event.preventDefault()
+    const email = document.getElementById("email").value
+    const password = document.getElementById("password").value
 
-        try {
-            const response = await fetch("http://localhost:3000/user")
-            const usuarios = await response.json()
+    try {
+        const user = await authentication.loginUser(email, password)
+        console.log("Inicio de sesión exitoso:", user)
 
-            const usuarioEncontrado = usuarios.find(
-                (user) => user.email === email && user.password === password
-            )
-
-            if (usuarioEncontrado) {
-                alert("Inicio de sesión exitoso")
-                localStorage.setItem("user", JSON.stringify(usuarioEncontrado))
-                // Redirigir a otra página o mostrar contenido
+        window.goToDashboard = function () {
+            const currentPath = window.location.pathname;
+            if (currentPath.includes('/views/')) {
+                window.location.href = "form.html";
             } else {
-                alert("Correo o contraseña incorrectos")
+                window.location.href = "./src/views/dashboard.html";// Redirige al dashboard
             }
-        } catch (error) {
-            console.error("Error al iniciar sesión:", error)
-            alert("Hubo un problema al intentar iniciar sesión")
         }
-    })
-})
+
+        location.href = "./dashboard.html" // Redirige al dashboard
+    } catch (error) {
+        alertError("Error: Credenciales inválidas")
+    }
+}
