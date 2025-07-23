@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <link rel="stylesheet" href="../css/auth-forms-styles.css">
+    <title>AlertFixer - Formulario de Reporte</title>
+</head>
+
+<body>
+
+    <body>
+        <header class="header">
+            <div class="logo">
+                <img src="../img/iconic-removebg-preview.png" alt="Logo" /> 
+            </div>
+            <h1>FORMULARIO DE REPORTE</h1>
+            <nav>
+                <div class="nav-links-container">
+                    <ul class="nav-links">
+                        <li><button onclick="goToHome()" class="btn-login">Inicio</button></li>
+                        <li><button onclick="goToLogin()" class="btn-login">Login</button></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <div class="inputs-container">
+                <form id="reportForm">
+                    <label for="fullName">Nombre completo</label>
+                    <input type="text" id="fullName" name="fullName">
+    
+                    <label for="idNumber">Numero de identificacion</label>
+                    <input type="text" id="idNumber" name="idNumber">
+    
+                    <label for="barrio">Barrio de residencia</label>
+                    <select id="barrio">
+                        <option value=""></option>
+                    </select>
+    
+                    <label for="address">Direccion</label>
+                    <input type="text" id="address" name="address">
+    
+                    <label for="description">Descripcion</label>
+                    <textarea id="description" name="description" rows="3"></textarea>
+    
+                    <button id="btn-create">Enviar Reporte</button>
+                </form>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2025 AlertFixer. Todos los derechos reservados.</p>
+        </footer>
+        <script type="module" src="../js/form.js"></script>
+    </body>
+
+</html>

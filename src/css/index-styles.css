@@ -30,19 +30,7 @@ body {
     flex-direction: column;
 }
 
-/* Body styles específicos para página principal con background image */
-body.main-page {
-    font-family: Arial, sans-serif;
-    background-color: #f1f1f1;
-    background-image: url(servicios-publicos-martha.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    backdrop-filter: blur(10px);
-}
-
 /* ===== HEADER ===== */
-header,
 .header {
     display: flex;
     justify-content: space-between;
@@ -56,25 +44,17 @@ header,
     gap: 15px;
 }
 
-.logo,
 .logo-container {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.logo img,
 .logo-container img,
 .logo-container .logo {
     height: 45px;
     border-radius: 50%;
     border: 2px solid var(--brand-white);
-}
-
-/* Logo específico para login page */
-.logo img {
-    width: 60px;
-    height: 60px;
 }
 
 .brand-name {
@@ -83,35 +63,7 @@ header,
     font-weight: bold;
 }
 
-.nav-links-container {
-    display: flex;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    padding: 0;
-}
-
-.nav-links li {
-    display: flex;
-}
-
-.nav-links li a {
-    color: var(--brand-white);
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease;
-}
-
-.nav-links li a:hover {
-    color: #ffdd57;
-}
-
 /* ===== BOTONES ===== */
-.button,
-.hero-button,
 .btn-login {
     padding: 0.6em 1.2em;
     background-color: var(--light-blue);
@@ -127,18 +79,20 @@ header,
     text-align: center;
 }
 
-.button:hover,
-.hero-button:hover,
 .btn-login:hover {
     background-color: var(--hover-blue);
 }
 
-/* Hero button específico */
 .hero-button {
     background-color: var(--primary-blue);
     padding: 1em 2em;
     font-size: 1.1rem;
     border-radius: 8px;
+    color: var(--brand-white);
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
 
 .hero-button:hover {
@@ -187,75 +141,6 @@ header,
     border-radius: 4px;
 }
 
-/* ===== MAIN CONTENT - Para páginas sin hero ===== */
-main {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 20px;
-}
-
-/* Para páginas con hero, main no debe tener flex */
-body:has(.hero) main {
-    display: block;
-    padding: 0;
-}
-
-/* ===== FORMULARIO LOGIN / REGISTRO ===== */
-.inputs-container {
-    background: #fff;
-    padding: 40px 50px;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-}
-
-.inputs-container h2 {
-    margin-bottom: 25px;
-    font-size: 2rem;
-    color: var(--text-dark);
-    font-weight: 700;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-form input {
-    padding: 15px 12px;
-    margin-bottom: 20px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-}
-
-form input:focus {
-    border-color: var(--focus-glow);
-    outline: none;
-    box-shadow: 0 0 8px var(--focus-glow);
-}
-
-/* ===== MENSAJES LOGIN ===== */
-.login-message {
-    margin-top: 15px;
-    font-weight: 600;
-    font-size: 1rem;
-    min-height: 24px;
-}
-
-.login-message.error {
-    color: #d93025;
-}
-
-.login-message.success {
-    color: #188038;
-}
-
 /* ===== FOOTER ===== */
 .footer {
     text-align: center;
@@ -267,69 +152,23 @@ form input:focus {
     margin-top: auto;
 }
 
-footer {
-    background-color: rgba(0, 0, 0, 0.7);
-    color: var(--brand-white);
-    text-align: center;
-    padding: 15px 20px;
-    font-size: 0.9rem;
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
-    margin-top: auto;
-}
-
-footer .social-links,
-.footer .social-links {
-    margin-top: 10px;
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    padding: 0;
-}
-
-footer .social-links li a,
-.footer .social-links li a {
-    color: var(--brand-white);
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease;
-}
-
-footer .social-links li a:hover,
-.footer .social-links li a:hover {
-    color: #ffdd57;
-}
-
 /* ===== RESPONSIVE ===== */
-
 @media (max-width: 1366px) and (min-width: 1024px) {
-    .header,
-    header {
+    .header {
         padding: 12px 30px;
     }
 
-    .button,
     .btn-login {
         padding: 10px 20px;
     }
 }
 
 @media (max-width: 991px) {
-    header,
     .header {
         flex-direction: column;
         text-align: center;
         height: auto;
         gap: 10px;
-    }
-
-    .nav-links {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .inputs-container {
-        padding: 30px 30px;
     }
 
     .hero-paragraph {
@@ -338,25 +177,18 @@ footer .social-links li a:hover,
 }
 
 @media (max-width: 768px) {
-    .logo img,
     .logo-container img,
     .logo-container .logo {
         width: 50px;
         height: 50px;
     }
 
-    .button,
-    .hero-button,
-    .btn-login {
+    .btn-login,
+    .hero-button {
         padding: 10px 18px;
         font-size: 0.95rem;
     }
 
-    .inputs-container h2 {
-        font-size: 1.7rem;
-    }
-
-    footer,
     .footer {
         font-size: 0.8rem;
     }
@@ -384,26 +216,12 @@ footer .social-links li a:hover,
 }
 
 @media (max-width: 480px) {
-    .button,
-    .hero-button,
-    .btn-login {
+    .btn-login,
+    .hero-button {
         width: 100%;
-    }
-
-    .inputs-container {
-        padding: 20px;
-    }
-
-    .inputs-container h2 {
-        font-size: 1.5rem;
-    }
-
-    .nav-links {
-        gap: 10px;
     }
 
     .hero-paragraph {
         font-size: 1.1rem;
     }
 }
-
