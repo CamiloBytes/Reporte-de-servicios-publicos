@@ -1,0 +1,210 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "exaple@example.com",
+      "password": "12345678"
+    },
+    {
+      "id": "ef37",
+      "name": "jonathan",
+      "CC": "12345"
+    },
+    {
+      "id": "514d",
+      "name": "jonathan",
+      "CC": "12344"
+    },
+    {
+      "id": "7f24",
+      "name": "jonathan",
+      "CC": "13246841245"
+    },
+    {
+      "id": "0cb3",
+      "name": "jonathan",
+      "CC": "1044603308"
+    },
+    {
+      "id": "7e51",
+      "name": "jonathan",
+      "CC": "12321354564"
+    },
+    {
+      "id": "9b70",
+      "name": "jonathan",
+      "CC": "10658541388"
+    }
+  ],
+  "reports": [
+    {
+      "id": "c3d4cea4-c8af-42d9-a1ad-f104403ca893",
+      "ccUser": "12345",
+      "address": "Calle 58 # 43 - 32",
+      "description": "1234",
+      "barrio": "Boston",
+      "dataTime": {
+        "timeCreateReport": "22/7/2025, 7:11:15 p. m.",
+        "timeProcessReport": "23/7/2025, 3:24:53 p. m.",
+        "timeFinishReport": "23/7/2025, 3:24:53 p. m."
+      },
+      "status": "resuelto"
+    },
+    {
+      "id": "50cafbb8-36a3-46c2-9e6e-eb786126eea3",
+      "ccUser": "12344",
+      "address": "Calle 58 # 43 - 32",
+      "description": "123",
+      "barrio": "Boston",
+      "dataTime": {
+        "timeCreateReport": "22/7/2025, 7:16:16 p. m.",
+        "timeProcessReport": "22/7/2025, 7:16:31 p. m.",
+        "timeFinishReport": "23/7/2025, 3:21:17 p. m."
+      },
+      "status": "resuelto"
+    },
+    {
+      "id": "a07ab864-dfe5-4acb-99e2-170836418884",
+      "ccUser": "13246841245",
+      "address": "",
+      "description": "1",
+      "barrio": "",
+      "dataTime": {
+        "timeCreateReport": "22/7/2025, 7:26:19 p. m.",
+        "timeProcessReport": "22/7/2025, 7:32:02 p. m.",
+        "timeFinishReport": "22/7/2025, 7:32:03 p. m."
+      },
+      "status": "resuelto"
+    },
+    {
+      "id": "138ccf2d-f4c2-47bd-885c-74015fe22b14",
+      "ccUser": "1044603308",
+      "address": "carrera 15#15-30",
+      "description": "j",
+      "barrio": "La Playa",
+      "dataTime": {
+        "timeCreateReport": "22/7/2025, 7:28:54 p. m.",
+        "timeProcessReport": "23/7/2025, 3:25:04 p. m.",
+        "timeFinishReport": "23/7/2025, 3:25:04 p. m."
+      },
+      "status": "resuelto"
+    },
+    {
+      "id": "90b19268-13b2-4618-99b9-73809b9af143",
+      "ccUser": "12321354564",
+      "address": "carrera 15#15-30",
+      "description": "124234",
+      "barrio": "Eduardo Santos La Playa",
+      "dataTime": {
+        "timeCreateReport": "22/7/2025, 7:31:20 p. m.",
+        "timeProcessReport": "22/7/2025, 7:31:44 p. m.",
+        "timeFinishReport": "23/7/2025, 3:25:05 p. m."
+      },
+      "status": "resuelto"
+    },
+    {
+      "id": "aa92b3a1-1bac-414a-aa7b-728698e69ec9",
+      "ccUser": "10658541388",
+      "address": "Carrera 31 #115-34",
+      "description": "se fue la luz",
+      "barrio": "La Pradera",
+      "dataTime": {
+        "timeCreateReport": "23/7/2025, 3:28:09 p. m.",
+        "timeProcessReport": "23/7/2025, 3:28:41 p. m.",
+        "timeFinishReport": "23/7/2025, 3:33:30 p. m."
+      },
+      "status": "resuelto"
+    }
+  ],
+  "damage": [
+    {
+      "id": "c3d4cea4-c8af-42d9-a1ad-f104403ca893",
+      "ccUser": "12345",
+      "address": "Calle 58 # 43 - 32",
+      "lat": 6.2497917,
+      "lon": -75.5553792,
+      "status": "resuelto"
+    },
+    {
+      "id": "50cafbb8-36a3-46c2-9e6e-eb786126eea3",
+      "ccUser": "12344",
+      "address": "Calle 58 # 43 - 32",
+      "lat": 10.9857638,
+      "lon": -74.7956902,
+      "status": "resuelto"
+    },
+    {
+      "id": "a07ab864-dfe5-4acb-99e2-170836418884",
+      "ccUser": "13246841245",
+      "address": "",
+      "lat": 11.0101922,
+      "lon": -74.8231794,
+      "status": "resuelto"
+    },
+    {
+      "id": "138ccf2d-f4c2-47bd-885c-74015fe22b14",
+      "ccUser": "1044603308",
+      "address": "carrera 15#15-30",
+      "lat": 7.9830383,
+      "lon": -75.1998165,
+      "status": "resuelto"
+    },
+    {
+      "id": "90b19268-13b2-4618-99b9-73809b9af143",
+      "ccUser": "12321354564",
+      "address": "carrera 15#15-30",
+      "lat": 11.0303082,
+      "lon": -74.8673785,
+      "status": "resuelto"
+    },
+    {
+      "id": "aa92b3a1-1bac-414a-aa7b-728698e69ec9",
+      "ccUser": "10658541388",
+      "address": "Carrera 31 #115-34",
+      "lat": 10.9778929,
+      "lon": -74.840979,
+      "status": "resuelto"
+    }
+  ],
+  "barrios": [
+    "El Prado",
+    "Alto Prado",
+    "Ciudad Jardín",
+    "Villa Carolina",
+    "Riomar",
+    "La Campiña",
+    "Miramar",
+    "Villa Santos",
+    "Boston",
+    "Lucero",
+    "Los Andes",
+    "Las Delicias",
+    "Los Nogales",
+    "San Isidro",
+    "El Recreo",
+    "La Concepción",
+    "Los Robles",
+    "Ciudadela 20 de Julio",
+    "Siete de Abril",
+    "Carrizal",
+    "El Bosque",
+    "La Sierrita",
+    "San Roque",
+    "Rebolo",
+    "Montecristo",
+    "Centro",
+    "La Luz",
+    "Simón Bolívar",
+    "Las Nieves",
+    "Las Malvinas",
+    "Eduardo Santos La Playa",
+    "La Pradera",
+    "Buena Esperanza",
+    "Loma Fresca",
+    "El Ferry",
+    "Pumarejo",
+    "Villa Estadio",
+    "Soledad 2000",
+    "Buenos Aires"
+  ]
+}

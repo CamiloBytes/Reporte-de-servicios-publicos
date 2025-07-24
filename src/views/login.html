@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/auth-forms-styles.css">
+  <link rel="icon" href="../img/iconic-removebg-preview.png" type="image/x-icon">
+  <title>AlertFixer - Login</title>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">
+      <img src="../img/iconic-removebg-preview.png" alt="Logo" /> 
+    </div>
+    <h1>LOGIN</h1>
+    <nav>
+      <div class="nav-links-container">
+        <ul class="nav-links">
+          <li><button onclick="goToHome()" class="btn-login">Inicio</button></li>
+          <li><button onclick="goToForm()" class="btn-login">Formulario</button></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="inputs-container">
+      <form id="login-form" action="">
+          <input type="email" name="" id="email" placeholder="Correo">
+          <input type="password" name="" id="password" placeholder="Contraseña">
+          <button class="hero-button" type="submit">Enviar</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2023 Mi Empresa. Todos los derechos reservados.</p>
+  </footer>
+  <script type="module" src="../js/login.js"></script>
+</body>
+</html>
