@@ -1,23 +1,23 @@
 import { authData } from './auth-data.js';
 
-// Usuarios de prueba para el sistema sin servidor
-const testUsers = [
+// Usuarios de prueba como fallback si no hay json-server
+const fallbackUsers = [
     {
-        id: 1,
+        id: "1",
         name: "Administrador",
         email: "admin@sistema.com",
         password: "admin123",
         role: "admin"
     },
     {
-        id: 2,
+        id: "2",
         name: "Usuario Visitante",
         email: "user@sistema.com", 
         password: "user123",
         role: "visitor"
     },
     {
-        id: 3,
+        id: "3",
         name: "Juan Pérez",
         email: "juan@correo.com",
         password: "123456",
@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const user = authData.auth.getUserLocal();
     if (user && authData.auth.getAuthToken()) {
         console.log("Usuario ya autenticado, redirigiendo al dashboard...");
-        // Dar tiempo para que se vea la página antes de redireccionar
         setTimeout(() => {
             window.location.href = 'dashboard.html';
         }, 500);
@@ -40,15 +39,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const loginForm = document.getElementById('login-form');
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-
     if (loginForm) {
         loginForm.addEventListener('submit', handleLogin);
     }
 
-    // Mostrar información de usuarios de prueba
-    showTestUsersInfo();
+    // Mostrar información de usuarios disponibles
+    showAvailableUsers();
 });
 
 async function handleLogin(event) {
@@ -71,8 +67,8 @@ async function handleLogin(event) {
     submitButton.disabled = true;
 
     try {
-        // Simulación de login con usuarios de prueba
-        const user = await simulateLogin(email, password);
+        // Intentar login con json-server primero
+        const user = await loginWithJsonServer(email, password);
         
         console.log("Login exitoso:", user);
         showNotification("Inicio de sesión exitoso", "success");
@@ -92,16 +88,49 @@ async function handleLogin(event) {
     }
 }
 
-// Función de login simulado para trabajar sin servidor
+// Función de login que usa json-server con fallback
+async function loginWithJsonServer(email, password) {
+    try {
+        console.log("Intentando login con json-server...");
+        
+        // Intentar obtener usuarios del json-server
+        const response = await authData.secureGet(`/users?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`, false);
+        
+        if (response && response.length > 0) {
+            const user = response[0];
+            console.log("Usuario encontrado en json-server:", user);
+            
+            // Crear sesión local
+            const userSession = {
+                ...user,
+                role: user.role || "visitor", // Asignar rol por defecto
+                loginTime: new Date().toISOString(),
+                lastActivity: new Date().toISOString()
+            };
+            
+            localStorage.setItem("user", JSON.stringify(userSession));
+            localStorage.setItem("authToken", btoa(`${user.email}:${user.id}:${Date.now()}`));
+            
+            return user;
+        } else {
+            throw new Error("Credenciales inválidas");
+        }
+        
+    } catch (serverError) {
+        console.log("Error con json-server, usando usuarios de prueba:", serverError);
+        
+        // Fallback a usuarios de prueba
+        return await simulateLogin(email, password);
+    }
+}
+
+// Función de login simulado como fallback
 async function simulateLogin(email, password) {
     return new Promise((resolve, reject) => {
-        // Simular delay de red
         setTimeout(() => {
-            // Buscar usuario en la lista de prueba
-            const user = testUsers.find(u => u.email === email && u.password === password);
+            const user = fallbackUsers.find(u => u.email === email && u.password === password);
             
             if (user) {
-                // Crear sesión local
                 const userSession = {
                     ...user,
                     loginTime: new Date().toISOString(),
@@ -115,12 +144,28 @@ async function simulateLogin(email, password) {
             } else {
                 reject(new Error("Credenciales inválidas. Verifique su email y contraseña."));
             }
-        }, 800); // Simular delay de 800ms
+        }, 800);
     });
 }
 
-function showTestUsersInfo() {
-    // Crear un panel informativo con los usuarios de prueba
+async function showAvailableUsers() {
+    try {
+        // Intentar obtener usuarios del json-server
+        console.log("Obteniendo usuarios del json-server...");
+        const users = await authData.secureGet("/users", false);
+        
+        if (users && users.length > 0) {
+            showUsersInfo(users, "json-server");
+        } else {
+            showUsersInfo(fallbackUsers, "fallback");
+        }
+    } catch (error) {
+        console.log("No se pudo conectar al json-server, mostrando usuarios de prueba");
+        showUsersInfo(fallbackUsers, "fallback");
+    }
+}
+
+function showUsersInfo(users, source) {
     const infoPanel = document.createElement('div');
     infoPanel.style.cssText = `
         position: fixed;
@@ -131,29 +176,48 @@ function showTestUsersInfo() {
         padding: 15px;
         border-radius: 10px;
         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        max-width: 300px;
+        max-width: 350px;
         z-index: 1000;
         font-size: 12px;
         cursor: pointer;
     `;
     
-    infoPanel.innerHTML = `
+    let usersHtml = `
         <div style="margin-bottom: 10px;">
-            <strong><i class="fas fa-info-circle"></i> Usuarios de Prueba</strong>
-        </div>
-        <div style="margin-bottom: 5px;">
-            <strong>👤 Admin:</strong> admin@sistema.com / admin123
-        </div>
-        <div style="margin-bottom: 5px;">
-            <strong>👤 Usuario:</strong> user@sistema.com / user123
-        </div>
-        <div style="margin-bottom: 5px;">
-            <strong>👤 Juan:</strong> juan@correo.com / 123456
-        </div>
-        <div style="font-style: italic; margin-top: 10px; font-size: 10px;">
-            Click para ocultar
+            <strong><i class="fas fa-info-circle"></i> Usuarios Disponibles</strong>
+            <span style="background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 4px; font-size: 10px; margin-left: 5px;">
+                ${source === 'json-server' ? 'JSON-Server' : 'Modo Prueba'}
+            </span>
         </div>
     `;
+    
+    if (source === 'json-server') {
+        users.forEach(user => {
+            if (user.email && user.password) {
+                usersHtml += `
+                    <div style="margin-bottom: 5px;">
+                        <strong>👤 ${user.name || 'Usuario'}:</strong> ${user.email} / ${user.password}
+                    </div>
+                `;
+            }
+        });
+    } else {
+        fallbackUsers.forEach(user => {
+            usersHtml += `
+                <div style="margin-bottom: 5px;">
+                    <strong>👤 ${user.name}:</strong> ${user.email} / ${user.password}
+                </div>
+            `;
+        });
+    }
+    
+    usersHtml += `
+        <div style="font-style: italic; margin-top: 10px; font-size: 10px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 8px;">
+            <i class="fas fa-mouse-pointer"></i> Click para ocultar
+        </div>
+    `;
+    
+    infoPanel.innerHTML = usersHtml;
     
     infoPanel.addEventListener('click', () => {
         infoPanel.remove();
@@ -161,12 +225,12 @@ function showTestUsersInfo() {
     
     document.body.appendChild(infoPanel);
     
-    // Auto-ocultar después de 10 segundos
+    // Auto-ocultar después de 15 segundos
     setTimeout(() => {
         if (infoPanel.parentNode) {
             infoPanel.remove();
         }
-    }, 10000);
+    }, 15000);
 }
 
 function showNotification(message, type = "info") {

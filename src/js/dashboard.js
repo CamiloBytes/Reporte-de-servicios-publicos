@@ -105,7 +105,7 @@ async function initializeDashboard() {
     try {
         isLoadingData = true;
         
-        // Obtener datos del usuario desde localStorage (no del servidor para evitar errores)
+        // Obtener datos del usuario desde localStorage
         currentUser = authData.auth.getUserLocal();
         console.log("Usuario actual:", currentUser);
         
@@ -176,9 +176,23 @@ async function loadDashboardData() {
     try {
         isLoadingData = true;
         
-        // Siempre usar datos de ejemplo para evitar problemas de conexión
-        console.log("Cargando datos de ejemplo para el dashboard...");
-        allReports = generateExampleData();
+        // Intentar cargar desde json-server
+        console.log("Cargando reportes desde json-server...");
+        
+        try {
+            const reports = await authData.secureGet("/reports", false);
+            
+            if (reports && Array.isArray(reports) && reports.length > 0) {
+                console.log("Reportes cargados desde json-server:", reports);
+                allReports = transformReportsData(reports);
+            } else {
+                console.log("No hay reportes en json-server, usando datos de ejemplo");
+                allReports = generateExampleData();
+            }
+        } catch (serverError) {
+            console.log("Error conectando con json-server, usando datos de ejemplo:", serverError);
+            allReports = generateExampleData();
+        }
         
         // Crear la tabla con los datos
         await createTable(allReports);
@@ -197,6 +211,40 @@ async function loadDashboardData() {
     } finally {
         isLoadingData = false;
     }
+}
+
+// Transformar datos del json-server al formato esperado
+function transformReportsData(serverReports) {
+    return serverReports.map(report => ({
+        id: report.id,
+        cedula: report.ccUser,
+        direccion: report.address,
+        hora: report.dataTime?.timeCreateReport || new Date().toISOString(),
+        descripcion: report.description,
+        estado: mapServerStatus(report.status),
+        barrio: report.barrio,
+        dataTime: report.dataTime
+    }));
+}
+
+// Mapear estados del servidor a nuestros estados
+function mapServerStatus(serverStatus) {
+    const statusMap = {
+        'recibido': 'pendiente',
+        'proceso': 'en_proceso', 
+        'resuelto': 'completado'
+    };
+    return statusMap[serverStatus] || 'pendiente';
+}
+
+// Mapear nuestros estados a estados del servidor
+function mapToServerStatus(ourStatus) {
+    const statusMap = {
+        'pendiente': 'recibido',
+        'en_proceso': 'proceso',
+        'completado': 'resuelto'
+    };
+    return statusMap[ourStatus] || 'recibido';
 }
 
 function generateExampleData() {
@@ -240,22 +288,6 @@ function generateExampleData() {
             hora: '2025-01-12T11:30:00',
             descripcion: 'Semáforo dañado en intersección',
             estado: 'completado'
-        },
-        {
-            id: '6',
-            cedula: '44556677',
-            direccion: 'Plaza Principal #1-1, Centro',
-            hora: '2025-01-14T12:00:00',
-            descripcion: 'Banco de parque roto',
-            estado: 'pendiente'
-        },
-        {
-            id: '7',
-            cedula: '77889900',
-            direccion: 'Avenida Central #200-50, Norte',
-            hora: '2025-01-13T09:30:00',
-            descripcion: 'Señal de tránsito caída',
-            estado: 'en_proceso'
         }
     ];
 }
@@ -322,11 +354,7 @@ async function createTable(reports) {
                     <button class="btn btn-sm btn-primary" onclick="viewReport('${report.id}')">
                         <i class="fas fa-eye"></i> Ver
                     </button>
-                    ${isAdmin ? 
-                        `<button class="btn btn-sm btn-success ms-1" onclick="updateReportStatus('${report.id}', 'completado')">
-                            <i class="fas fa-check"></i> Completar
-                        </button>` : ''
-                    }
+                    ${isAdmin ? getStatusButtons(report.id, report.estado) : ''}
                 </td>
             </tr>
         `;
@@ -340,6 +368,40 @@ async function createTable(reports) {
     tableContainer.innerHTML = tableHTML;
 }
 
+// Generar botones de estado con colores rojo, amarillo, verde
+function getStatusButtons(reportId, currentStatus) {
+    let buttons = '';
+    
+    // Botón Recibido (Rojo) - solo si no está en este estado
+    if (currentStatus !== 'pendiente') {
+        buttons += `
+            <button class="btn btn-sm status-btn status-received ms-1" onclick="updateReportStatus('${reportId}', 'pendiente')" title="Marcar como Recibido">
+                <i class="fas fa-inbox"></i> Recibido
+            </button>
+        `;
+    }
+    
+    // Botón En Proceso (Amarillo) - solo si no está en este estado
+    if (currentStatus !== 'en_proceso') {
+        buttons += `
+            <button class="btn btn-sm status-btn status-process ms-1" onclick="updateReportStatus('${reportId}', 'en_proceso')" title="Marcar como En Proceso">
+                <i class="fas fa-cog"></i> En Proceso
+            </button>
+        `;
+    }
+    
+    // Botón Resuelto (Verde) - solo si no está en este estado
+    if (currentStatus !== 'completado') {
+        buttons += `
+            <button class="btn btn-sm status-btn status-resolved ms-1" onclick="updateReportStatus('${reportId}', 'completado')" title="Marcar como Resuelto">
+                <i class="fas fa-check"></i> Resuelto
+            </button>
+        `;
+    }
+    
+    return buttons;
+}
+
 function truncateText(text, maxLength) {
     if (!text) return 'N/A';
     if (text.length <= maxLength) return text;
@@ -349,6 +411,11 @@ function truncateText(text, maxLength) {
 function formatDateTime(dateTime) {
     if (!dateTime) return 'N/A';
     try {
+        // Manejar formato del json-server
+        if (typeof dateTime === 'string' && dateTime.includes('/')) {
+            return dateTime; // Ya está formateado
+        }
+        
         const date = new Date(dateTime);
         return date.toLocaleString('es-ES', {
             year: 'numeric',
@@ -364,21 +431,21 @@ function formatDateTime(dateTime) {
 
 function getStatusDisplayText(status) {
     const statusMap = {
-        'pendiente': 'Pendiente',
+        'pendiente': 'Recibido',
         'en_proceso': 'En Proceso',
-        'completado': 'Completado',
+        'completado': 'Resuelto',
         'cancelado': 'Cancelado'
     };
-    return statusMap[status?.toLowerCase()] || 'Pendiente';
+    return statusMap[status?.toLowerCase()] || 'Recibido';
 }
 
 function getStatusBadgeClass(status) {
     switch(status?.toLowerCase()) {
-        case 'completado': return 'bg-success';
-        case 'en_proceso': return 'bg-warning';
-        case 'pendiente': return 'bg-secondary';
+        case 'completado': return 'status-badge-resolved';
+        case 'en_proceso': return 'status-badge-process';
+        case 'pendiente': return 'status-badge-received';
         case 'cancelado': return 'bg-danger';
-        default: return 'bg-secondary';
+        default: return 'status-badge-received';
     }
 }
 
@@ -500,11 +567,24 @@ window.updateReportStatus = async function(reportId, newStatus) {
             allReports[reportIndex].updatedAt = new Date().toISOString();
         }
         
+        // Intentar actualizar en json-server
+        try {
+            const serverStatus = mapToServerStatus(newStatus);
+            await authData.securePut(`/reports/${reportId}`, { 
+                status: serverStatus,
+                updatedAt: new Date().toISOString()
+            }, false);
+            console.log("Estado actualizado en json-server");
+        } catch (serverError) {
+            console.log("Error actualizando en servidor, solo local:", serverError);
+        }
+        
         // Recargar la vista
         const currentFilter = document.getElementById('status-filter')?.value || '';
         filterReports(currentFilter);
         
-        showSuccessMessage("Estado del reporte actualizado correctamente");
+        const statusText = getStatusDisplayText(newStatus);
+        showSuccessMessage(`Reporte marcado como "${statusText}" correctamente`);
         
     } catch (error) {
         console.error("Error actualizando reporte:", error);
@@ -537,9 +617,7 @@ window.logout = function() {
     }
 };
 
-// NO HAY MÁS AUTO-REFRESH para evitar problemas
-
-// Agregar estilos CSS para animaciones
+// Agregar estilos CSS para animaciones y botones de estado
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {
@@ -554,6 +632,80 @@ style.textContent = `
     
     .stat-number {
         transition: all 0.3s ease;
+    }
+    
+    /* Botones de estado con colores específicos */
+    .status-btn {
+        font-size: 11px;
+        padding: 4px 8px;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        cursor: pointer;
+    }
+    
+    .status-received {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); /* Rojo */
+    }
+    
+    .status-received:hover {
+        background: linear-gradient(135deg, #c82333 0%, #a71e2a 100%);
+        transform: translateY(-1px);
+    }
+    
+    .status-process {
+        background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%); /* Amarillo */
+        color: #000;
+    }
+    
+    .status-process:hover {
+        background: linear-gradient(135deg, #e0a800 0%, #d39e00 100%);
+        transform: translateY(-1px);
+    }
+    
+    .status-resolved {
+        background: linear-gradient(135deg, #28a745 0%, #218838 100%); /* Verde */
+    }
+    
+    .status-resolved:hover {
+        background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
+        transform: translateY(-1px);
+    }
+    
+    /* Badges de estado */
+    .status-badge-received {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .status-badge-process {
+        background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+        color: #000;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .status-badge-resolved {
+        background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 `;
 document.head.appendChild(style);
