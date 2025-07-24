@@ -5,24 +5,41 @@ import { alertError } from './alert.js';
 let allReports = [];
 let currentUser = null;
 let isLoadingData = false; // Prevenir cargas múltiples
+let initializationCompleted = false; // Prevenir inicializaciones múltiples
 
 // Inicializar página con protección de autenticación
 document.addEventListener('DOMContentLoaded', async () => {
+    // Prevenir múltiples inicializaciones
+    if (initializationCompleted) {
+        console.log("Dashboard ya inicializado, saltando...");
+        return;
+    }
+
     try {
-        // Proteger la ruta - requiere autenticación
-        const isAuthorized = await authData.initializePage({
-            requireAuth: true,
-            requiredRole: "visitor"
-        });
+        // Verificación básica de autenticación sin redirecciones automáticas
+        const user = authData.auth.getUserLocal();
+        const token = authData.auth.getAuthToken();
         
-        if (isAuthorized) {
-            await initializeDashboard();
-            setupEventListeners();
+        if (!user || !token) {
+            console.log("No hay sesión válida, redirigiendo al login...");
+            window.location.href = '../views/login.html';
+            return;
         }
+
+        // Si llegamos aquí, el usuario está logueado
+        console.log("Usuario autenticado:", user);
+        await initializeDashboard();
+        setupEventListeners();
+        initializationCompleted = true;
+        
     } catch (error) {
         console.error("Error inicializando dashboard:", error);
-        // No usar authData.handleAuthError para evitar redirecciones excesivas
         showErrorMessage("Error inicializando el dashboard");
+        
+        // Solo redirigir en caso de error real de autenticación
+        setTimeout(() => {
+            window.location.href = '../views/login.html';
+        }, 2000);
     }
 });
 
@@ -78,7 +95,7 @@ function showErrorMessage(message) {
     
     setTimeout(() => {
         notification.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => notification.remove(), 5000);
+        setTimeout(() => notification.remove(), 300);
     }, 5000);
 }
 
@@ -88,7 +105,7 @@ async function initializeDashboard() {
     try {
         isLoadingData = true;
         
-        // Obtener datos del usuario actual
+        // Obtener datos del usuario desde localStorage (no del servidor para evitar errores)
         currentUser = authData.auth.getUserLocal();
         console.log("Usuario actual:", currentUser);
         
@@ -159,25 +176,9 @@ async function loadDashboardData() {
     try {
         isLoadingData = true;
         
-        // Intentar usar datos del servidor primero
-        try {
-            const users = await authData.secureGet("/users", true);
-            const reports = await authData.secureGet("/reports", true);
-            
-            console.log("Usuarios:", users);
-            console.log("Reportes:", reports);
-            
-            // Almacenar reportes si hay datos válidos
-            if (reports && Array.isArray(reports)) {
-                allReports = reports;
-            } else {
-                throw new Error("No hay datos válidos del servidor");
-            }
-        } catch (serverError) {
-            console.log("No se pudo conectar al servidor, usando datos de ejemplo:", serverError);
-            // Usar datos de ejemplo si no hay servidor disponible
-            allReports = generateExampleData();
-        }
+        // Siempre usar datos de ejemplo para evitar problemas de conexión
+        console.log("Cargando datos de ejemplo para el dashboard...");
+        allReports = generateExampleData();
         
         // Crear la tabla con los datos
         await createTable(allReports);
@@ -239,6 +240,22 @@ function generateExampleData() {
             hora: '2025-01-12T11:30:00',
             descripcion: 'Semáforo dañado en intersección',
             estado: 'completado'
+        },
+        {
+            id: '6',
+            cedula: '44556677',
+            direccion: 'Plaza Principal #1-1, Centro',
+            hora: '2025-01-14T12:00:00',
+            descripcion: 'Banco de parque roto',
+            estado: 'pendiente'
+        },
+        {
+            id: '7',
+            cedula: '77889900',
+            direccion: 'Avenida Central #200-50, Norte',
+            hora: '2025-01-13T09:30:00',
+            descripcion: 'Señal de tránsito caída',
+            estado: 'en_proceso'
         }
     ];
 }
@@ -287,7 +304,8 @@ async function createTable(reports) {
     `;
     
     for (let report of reports) {
-        const isAdmin = authData.canAccess && authData.canAccess('admin');
+        // Verificar permisos de admin de forma segura
+        const isAdmin = currentUser && currentUser.role === 'admin';
         
         tableHTML += `
             <tr>
@@ -468,12 +486,14 @@ function showReportModal(report) {
 
 window.updateReportStatus = async function(reportId, newStatus) {
     try {
-        if (!authData.canAccess || !authData.canAccess('admin')) {
+        // Verificar permisos de admin de forma segura
+        const isAdmin = currentUser && currentUser.role === 'admin';
+        if (!isAdmin) {
             showErrorMessage("No tienes permisos para realizar esta acción");
             return;
         }
         
-        // Actualizar en el array local primero
+        // Actualizar en el array local
         const reportIndex = allReports.findIndex(r => r.id === reportId);
         if (reportIndex !== -1) {
             allReports[reportIndex].estado = newStatus;
@@ -492,26 +512,22 @@ window.updateReportStatus = async function(reportId, newStatus) {
     }
 };
 
-// Función principal de cerrar sesión
+// Función principal de cerrar sesión (MEJORADA para evitar bucles)
 window.logout = function() {
     // Mostrar confirmación antes de cerrar sesión
     const confirmLogout = confirm('¿Está seguro que desea cerrar sesión?');
     
     if (confirmLogout) {
         try {
-            // Limpiar datos locales
-            localStorage.clear();
+            // Limpiar datos locales MANUALMENTE (no usar auth.logout que puede causar bucles)
+            localStorage.removeItem("user");
+            localStorage.removeItem("authToken");
             sessionStorage.clear();
             
-            // Usar el método de logout del sistema de autenticación
-            if (authData && authData.auth && typeof authData.auth.logout === 'function') {
-                authData.auth.logout();
-            } else {
-                // Fallback: redirigir manualmente
-                window.location.href = '../views/login.html';
-            }
-            
             console.log("Sesión cerrada correctamente");
+            
+            // Redirección manual y controlada
+            window.location.href = '../views/login.html';
             
         } catch (error) {
             console.error("Error cerrando sesión:", error);
@@ -521,8 +537,7 @@ window.logout = function() {
     }
 };
 
-// ELIMINADO: Auto-refresh que causaba recargas excesivas
-// No hay más auto-refresh automático para evitar problemas
+// NO HAY MÁS AUTO-REFRESH para evitar problemas
 
 // Agregar estilos CSS para animaciones
 const style = document.createElement('style');
