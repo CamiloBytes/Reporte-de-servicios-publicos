@@ -118,7 +118,7 @@ window.cambiarEstado = async function (id, lat, lon, nuevoEstado) {
         const res = await fetch(`${API_URL}/${id}`, {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ estado: nuevoEstado })
+            body: JSON.stringify({ status: nuevoEstado })
         })
 
         if (!res.ok){

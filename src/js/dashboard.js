@@ -1,5 +1,4 @@
 import { authData } from './auth-data.js';
-import { alertError } from './alert.js';
 
 // Inicializar página con protección de autenticación
 document.addEventListener('DOMContentLoaded', async () => {
@@ -11,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
         
         if (isAuthorized) {
-            await initializeDashboard();
+            initializeDashboard();
         }
     } catch (error) {
         console.error("Error inicializando dashboard:", error);
@@ -19,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-async function initializeDashboard() {
+function initializeDashboard() {
     try {
         // Obtener datos del usuario actual
         const currentUser = authData.auth.getUserLocal();
@@ -28,9 +27,10 @@ async function initializeDashboard() {
         // Mostrar información del usuario en la interfaz
         displayUserInfo(currentUser);
         
+        console.log("Dashboard inicializado correctamente");
+        
     } catch (error) {
         console.error("Error cargando dashboard:", error);
-        alertError("Error cargando los datos del dashboard");
     }
 }
 
@@ -40,7 +40,7 @@ function displayUserInfo(user) {
     if (userNameElement) userNameElement.textContent = user.name || user.email || "Usuario";
 }
 
-// Función de cerrar sesión (ÚNICO CAMBIO AGREGADO)
+// Función de cerrar sesión
 window.logout = function() {
     // Mostrar confirmación antes de cerrar sesión
     const confirmLogout = confirm('¿Está seguro que desea cerrar sesión?');

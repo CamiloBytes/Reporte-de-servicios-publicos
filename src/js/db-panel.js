@@ -2,7 +2,7 @@ const apiUsers = "http://localhost:3000/users";
 const apiReports = "http://localhost:3000/reports";
 const apiDamage = "http://localhost:3000/damage";
 
-const statusElement = document.getElementById("status");
+let users, reports, damages;
 
 // Fetch data from a given URL and return parsed JSON
 async function fetchData(url) {
@@ -11,16 +11,33 @@ async function fetchData(url) {
     return await response.json();
 }
 
-// Fetch all data concurrently
-const [users, reports, damages] = await Promise.all([
-    fetchData(apiUsers),
-    fetchData(apiReports),
-    fetchData(apiDamage),
-]);
+// Initialize data when DOM is ready
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        // Fetch all data concurrently
+        [users, reports, damages] = await Promise.all([
+            fetchData(apiUsers),
+            fetchData(apiReports),
+            fetchData(apiDamage),
+        ]);
+
+        console.log("Datos cargados:", { users, reports, damages });
+        
+        // Render the table
+        renderTable();
+    } catch (error) {
+        console.error("Error loading data:", error);
+    }
+});
 
 // Render the reports table inside the page
 function renderTable() {
     const tableContainer = document.getElementById("createTable");
+
+    if (!tableContainer) {
+        console.error("No se encontró el elemento createTable");
+        return;
+    }
 
     // Build the table header and start tbody
     let tableHTML = `
@@ -128,18 +145,21 @@ function attachButtonListeners() {
 
 // Send PUT requests to update report and damage records
 async function updateReportAndDamage(id, reportData, damageData) {
-    await fetch(`${apiDamage}/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(damageData),
-    });
+    try {
+        await fetch(`${apiDamage}/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(damageData),
+        });
 
-    await fetch(`${apiReports}/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(reportData),
-    });
+        await fetch(`${apiReports}/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(reportData),
+        });
+
+        console.log("Datos actualizados correctamente");
+    } catch (error) {
+        console.error("Error actualizando datos:", error);
+    }
 }
-
-// Start rendering the table
-renderTable();
