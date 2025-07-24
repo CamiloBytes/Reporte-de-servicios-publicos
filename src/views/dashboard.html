@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sistema de Reportes de Daños</title>
+    <title>Panel de Control</title>
     <link rel="stylesheet" href="../css/style-dahsboard.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
@@ -13,7 +13,7 @@
 <body>
     <header class="panel-superior">
         <div class="header-content">
-            <h1><i class="fas fa-exclamation-triangle"></i> SISTEMA DE REPORTES DE DAÑOS</h1>
+            <h1>PANEL DE CONTROL</h1>
             <div class="user-controls">
                 <span id="user-welcome" class="user-info">Bienvenido, <span id="user-name">Usuario</span></span>
                 <button id="logout-btn" class="logout-btn" onclick="logout()">
@@ -26,50 +26,15 @@
     <main>
         <div class="contenedor">
             <aside class="sidebar">
-                <div class="sidebar-header">
-                    <h2><i class="fas fa-chart-bar"></i> ESTADÍSTICAS</h2>
-                </div>
-                
-                <div class="stats-container">
-                    <div class="stat-card">
-                        <h3>Total de Reportes</h3>
-                        <span id="total-reports" class="stat-number">0</span>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Pendientes</h3>
-                        <span id="pending-reports" class="stat-number pending">0</span>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Completados</h3>
-                        <span id="completed-reports" class="stat-number completed">0</span>
-                    </div>
-                </div>
-
-                <div class="map-container">
-                    <h3><i class="fas fa-map-marker-alt"></i> Mapa de Reportes</h3>
-                    <div class="mapa" id="map"></div>
+                <h2>BIENVENIDO <br><span>"EMPRESA"</span></h2>
+                <div class="mapa" id="map">
                 </div>
             </aside>
 
             <section class="contenido">
-                <div class="content-header">
-                    <h2><i class="fas fa-list"></i> Reportes de Daños Registrados</h2>
-                    <div class="filter-controls">
-                        <select id="status-filter" class="filter-select">
-                            <option value="">Todos los estados</option>
-                            <option value="pendiente">Pendientes</option>
-                            <option value="en_proceso">En Proceso</option>
-                            <option value="completado">Completados</option>
-                        </select>
-                        <button id="refresh-btn" class="refresh-btn">
-                            <i class="fas fa-sync-alt"></i> Actualizar
-                        </button>
-                    </div>
-                </div>
-                
                 <div class="tabla-contenedor">
                     <table id="createTable">
-                        <!-- La tabla se generará dinámicamente -->
+                        
                     </table>
                 </div>
             </section>
@@ -77,7 +42,7 @@
     </main>
 
     <footer class="footer">
-        <span><i class="fas fa-copyright"></i> 2025 Sistema de Reportes de Daños - Gestión Municipal</span>
+        <span>© 2025 Empresa</span>
     </footer>
 </body>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
