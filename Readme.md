@@ -1,108 +1,132 @@
-# 🗺️ Mapa de Daños - Sistema de Reporte de Servicios Públicos
+# 🗺️ Damage Map - Public Services Reporting System
 
-Una aplicación web interactiva para reportar y gestionar daños en servicios públicos de Barranquilla, Colombia. Los ciudadanos pueden reportar problemas como alcantarillas dañadas, semáforos averiados, baches en las calles, y más.
+An interactive web application for reporting and managing damage to public services in Barranquilla, Colombia. Citizens can report issues such as damaged sewers, broken traffic lights, street potholes, and more.
 
-## ✨ Características
+## ✨ Features
 
-- **Mapa interactivo** con límites geográficos de Barranquilla
-- **Reporte de daños** mediante formulario con geolocalización automática
-- **Estados de seguimiento**: Pendiente, En reparación, Solucionado
-- **Marcadores visuales** con códigos de color según el estado
-- **Interfaz responsive** y fácil de usar
-- **Alertas informativas** para mejorar la experiencia del usuario
-- **Prevención de duplicados** en la misma ubicación
+- Interactive map with geographic boundaries of Barranquilla
+- Damage reporting through forms with automatic geolocation
+- Tracking states: Pending, Under Repair, Resolved
+- Visual markers with color codes according to status
+- Responsive and user-friendly interface
+- Informative alerts to improve user experience
+- Prevention of duplicates at the same location
 
-## 🛠️ Tecnologías Utilizadas
+## 🛠️ Technologies Used
 
-- **Frontend**: Vanilla JavaScript (ES6+), HTML5, CSS3
-- **Mapa**: Leaflet.js con tiles de OpenStreetMap
-- **Geocodificación**: API de Nominatim (OpenStreetMap)
-- **Backend**: JSON Server (desarrollo)
-- **Alertas**: SweetAlert2
-- **Herramienta de construcción**: Vite
-- **Estilos**: CSS personalizado
+- **Frontend:** Vanilla JavaScript (ES6+), HTML5, CSS3
+- **Map:** Leaflet.js with OpenStreetMap tiles
+- **Geocoding:** Nominatim API (OpenStreetMap)
+- **Backend:** JSON Server (development)
+- **Alerts:** SweetAlert2
+- **Build Tool:** Vite
+- **Styles:** Custom CSS
 
-## 📋 Requisitos Previos
+## 📋 Prerequisites
 
-- Node.js (versión 18 o superior)
-- npm o yarn
+- Node.js (version 18 or higher)
+- npm or yarn
 
-## 🚀 Instalación y Configuración
+## 🚀 Installation and Setup
 
-1. **Clonar el repositorio**
+1. **Clone the repository**
    ```bash
-   git clone [URL_DEL_REPOSITORIO]
+   git clone https://github.com/CamiloBytes/Reporte-de-servicios-publicos.git
    cd reporte-de-servicios-publicos
    ```
 
-2. **Instalar dependencias**
+2. **Install dependencies**
    ```bash
    npm install
    ```
 
-3. **Iniciar el servidor de desarrollo**
+3. **Start the development server**
    ```bash
-   # Terminal 1: Servidor JSON (Backend)
+   # Terminal 1: JSON Server (Backend)
    npx json-server public/db.json --port 3000
 
-   # Terminal 2: Servidor de desarrollo (Frontend)
+   # Terminal 2: Development Server (Frontend)
    npm run dev
    ```
 
-4. **Abrir la aplicación**
+4. **Open the application**
    - Frontend: `http://localhost:5173`
    - API Backend: `http://localhost:3000`
 
-## 📁 Estructura del Proyecto
+## 📁 Project Structure
 
 ```
 reporte-de-servicios-publicos/
 ├── public/
-│   ├── db.json              # Base de datos JSON
+│   ├── db.json              # JSON database
 │   └── vite.svg             # Favicon
 ├── src/
-│   └── js/
-│       ├── alert.js         # Configuración de alertas
-│       ├── config.js        # Configuración general
-│       ├── mapa.js          # Lógica principal del mapa
-│       └── utils.js         # Funciones utilitarias
-├── index.html               # Página principal
-├── package.json             # Dependencias y scripts
-└── README.md               # Documentación
+│   ├── css/
+│   │   ├── auth-forms-styles.css    # Authentication forms styles
+│   │   ├── index-styles.css         # Main page styles
+│   │   ├── map.css                  # Map styles
+│   │   ├── style-dashboard.css      # Dashboard styles
+│   │   └── styles.css               # General styles
+│   ├── img/
+│   │   └── iconic-removebg-preview.png  # Application logo
+│   ├── js/
+│   │   ├── maps/
+│   │   │   ├── alert.js             # Map-specific alerts
+│   │   │   ├── config.js            # Map configuration
+│   │   │   ├── mapa.js              # Main map logic
+│   │   │   └── utils.js             # Map utilities
+│   │   ├── alert.js                 # General alert system
+│   │   ├── api.js                   # REST API client
+│   │   ├── auth.js                  # Authentication system
+│   │   ├── auth-data.js             # Auth + data integration
+│   │   ├── dashboard.js             # Dashboard logic
+│   │   ├── data.js                  # Data management
+│   │   ├── db-panel.js              # Database panel
+│   │   ├── form.js                  # Form logic
+│   │   ├── login.js                 # Login logic
+│   │   └── main.js                  # Main functions
+│   └── views/
+│       ├── dashboard.html           # Control panel
+│       ├── form.html                # Report form
+│       └── login.html               # Login page
+├── .gitignore                       # Files ignored by Git
+├── index.html                       # Main page
+├── package.json                     # Dependencies and scripts
+├── package-lock.json                # Exact dependency versions
+└── README.md                        # Documentation
 ```
 
-## 🎯 Uso de la Aplicación
+## 🎯 Application Usage
 
-### Para Ciudadanos (Reportar Daños)
+### For Citizens (Report Damage)
 
-1. **Completar el formulario**:
-   - Ingresa el nombre del barrio
-   - Especifica la dirección exacta
+1. **Complete the form**:
+   - Enter the neighborhood name
+   - Specify the exact address
 
-2. **Enviar reporte**:
-   - Haz clic en "Reportar Daño"
-   - El sistema geocodificará automáticamente la dirección
-   - Se creará un marcador rojo en el mapa
+2. **Submit report**:
+   - Click "Report Damage"
+   - The system will automatically geocode the address
+   - A red marker will be created on the map
 
-### Para Administradores (Gestionar Estados)
+### For Administrators (Manage States)
 
-1. **Ver reportes**: Los daños aparecen como círculos de colores en el mapa
-2. **Cambiar estados**: Haz clic en cualquier marcador para:
-   - Marcar como "En reparación" (amarillo)
-   - Marcar como "Solucionado" (verde)
+1. **View reports**: Damage appears as colored circles on the map
+2. **Change states**: Click on any marker to:
+   - Mark as "Under Repair" (yellow)
+   - Mark as "Resolved" (green)
 
-## 🎨 Estados y Códigos de Color
+## 🎨 States and Color Codes
 
-| Estado       | Color       | Descripción                        |
-|--------      |--------     |-------------                       |
-| Pendiente    | 🔴 Rojo     | Daño reportado, esperando atención |
-| En reparación| 🟡 Amarillo | Daño en proceso de reparación      |
-| Solucionado  | 🟢 Verde    | Daño completamente resuelto        |
+| State | Color | Description |
+|-------|-------|-------------|
+| Pending | 🔴 Red | Damage reported, awaiting attention |
+| Under Repair | 🟡 Yellow | Damage in repair process |
+| Resolved | 🟢 Green | Damage completely resolved |
 
-## 🔧 Configuración
+## 🔧 Configuration
 
-### Variables de Configuración (`src/js/config.js`)
-
+### Configuration Variables (`src/js/config.js`)
 ```javascript
 export const API_URL = "http://localhost:3000/daños";
 
@@ -113,55 +137,53 @@ export const ESTADOS = {
 };
 ```
 
-### Límites Geográficos
+### Geographic Boundaries
+The application is configured to operate only within Barranquilla's limits:
+- **North**: 11.05°N
+- **South**: 10.89°N  
+- **East**: -74.72°W
+- **West**: -74.88°W
 
-La aplicación está configurada para operar únicamente dentro de los límites de Barranquilla:
-- **Norte**: 11.05°N
-- **Sur**: 10.89°N  
-- **Este**: -74.72°W
-- **Oeste**: -74.88°W
+## 📱 Technical Features
 
-## 📱 Características Técnicas
+### Implemented Validations
 
-### Validaciones Implementadas
+- **Required fields**: Neighborhood and address are mandatory
+- **Text format**: Automatic capitalization
+- **Duplicates**: Prevention of reports at the same location
+- **Geocoding**: Validation of existing addresses
 
-- **Campos obligatorios**: Barrio y dirección son requeridos
-- **Formato de texto**: Capitalización automática
-- **Duplicados**: Prevención de reportes en la misma ubicación
-- **Geocodificación**: Validación de direcciones existentes
+### Map Functionalities
 
-### Funcionalidades del Mapa
+- **Limited zoom**: Between levels 10-18
+- **Restricted navigation**: Cannot leave Barranquilla boundaries
+- **Interactive markers**: Popups with information and actions
+- **Real-time updates**: Changes are reflected immediately
 
-- **Zoom limitado**: Entre niveles 10-18
-- **Navegación restringida**: No se puede salir de Barranquilla
-- **Marcadores interactivos**: Popups con información y acciones
-- **Actualización en tiempo real**: Los cambios se reflejan inmediatamente
-
-## 🚀 Scripts Disponibles
+## 🚀 Available Scripts
 
 ```bash
-# Desarrollo
-npm run dev          # Inicia servidor de desarrollo
+# Development
+npm run dev          # Start development server
 
-# Producción
-npm run build        # Construye la aplicación para producción
-npm run preview      # Vista previa de la build de producción
+# Production
+npm run build        # Build application for production
+npm run preview      # Preview production build
 
-# Base de datos
-npx json-server public/db.json --port 3000  # Inicia API REST
+# Database
+npx json-server public/db.json --port 3000  # Start REST API
 ```
 
-## 🌐 Endpoints de la API
+## 🌐 API Endpoints
 
-| Método | Endpoint     | Descripción               |
+| Method | Endpoint     | Description               |
 |--------|----------    |-----------------------     |
-| GET    | `/daños`     | Obtener todos los daños   |
-| POST   | `/daños`     | Crear nuevo reporte       |
-| PATCH  | `/daños/:id` | Actualizar estado de daño |
-| DELETE | `/daños/:id` | Eliminar daño (opcional)  |
+| GET    | `/daños`     | Get all damage reports   |
+| POST   | `/daños`     | Create new report       |
+| PATCH  | `/daños/:id` | Update damage state |
+| DELETE | `/daños/:id` | Delete damage (optional)  |
 
-### Ejemplo de Estructura de Datos
-
+### Example Data Structure
 ```json
 {
   "id": "1",
@@ -172,75 +194,73 @@ npx json-server public/db.json --port 3000  # Inicia API REST
 }
 ```
 
+## 📈 Future Improvements
 
-## 📈 Mejoras Futuras
+- [ ] **User authentication**
+- [ ] **Damage categories** (Sewerage, Lighting, Roads, etc.)
+- [ ] **Photo upload** for reports
+- [ ] **Email/SMS notifications**
+- [ ] **Administrative dashboard** with statistics
+- [ ] **More robust REST API** with real database
+- [ ] **Complementary mobile app**
+- [ ] **Integration with municipal systems**
 
-- [ ] **Autenticación de usuarios**
-- [ ] **Categorías de daños** (Alcantarillado, Iluminación, Vías, etc.)
-- [ ] **Subida de fotos** para los reportes
-- [ ] **Notificaciones por email/SMS**
-- [ ] **Dashboard administrativo** con estadísticas
-- [ ] **API REST más robusta** con base de datos real
-- [ ] **App móvil** complementaria
-- [ ] **Integración con sistemas municipales**
-
-## 🧪 Pruebas
+## 🧪 Testing
 
 ```bash
-# Ejecutar pruebas (cuando se implementen)
+# Run tests (when implemented)
 npm test
 
-# Ejecutar pruebas en modo observador
+# Run tests in watch mode
 npm run test:watch
 
-# Ejecutar pruebas con cobertura
+# Run tests with coverage
 npm run test:coverage
 ```
 
-## 🔒 Consideraciones de Seguridad
+## 🔒 Security Considerations
 
-- Validación y sanitización de entradas
-- Limitación de velocidad para endpoints de la API
-- Configuración CORS para producción
-- Autenticación para acciones administrativas
+- Input validation and sanitization
+- Rate limiting for API endpoints
+- CORS configuration for production
+- Authentication for administrative actions
 
-## 🌍 Internacionalización
+## 🌍 Internationalization
 
-Actualmente disponible en:
-- Español (predeterminado)
+Currently available in:
+- **Spanish** (default)
 
-## 📊 Rendimiento
+## 📊 Performance
 
-- Carga perezosa de tiles del mapa
-- Funcionalidad de búsqueda con debounce
-- Clustering optimizado de marcadores para conjuntos de datos grandes
-- Tamaño de bundle mínimo con tree shaking
+- Lazy loading of map tiles
+- Debounced search functionality
+- Optimized marker clustering for large datasets
+- Minimal bundle size with tree shaking
 
-## 🐛 Problemas Conocidos
+## 🐛 Known Issues
 
-- La geocodificación puede ser lenta para algunas direcciones
-- El rendimiento del mapa con más de 1000 marcadores necesita optimización
-- Los gestos táctiles móviles podrían mejorarse
+- Geocoding can be slow for some addresses
+- Map performance with 1000+ markers needs optimization
+- Mobile touch gestures could be improved
 
-## 📄 Licencia
+## 📄 License
 
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE.md](LICENSE.md) para más detalles.
+This project is under the MIT License - see the [LICENSE.md](LICENSE.md) file for more details.
 
-## 👥 Autores
+## 👥 Authors
 
-- **Camilo Parra** 
-- **Keyner Barrio** 
-- **Luis Cera** 
-- **Jonathan Lopes** 
-- **Martha Garcia**
-- **Reinaldo Leal** 
+- Camilo Parra
+- Keyner Barrio
+- Luis Cera
+- Jonathan Lopes
+- Martha Garcia
+- Reinaldo Leal
 
+## 🙏 Acknowledgments
 
-## 🙏 Agradecimientos
+- OpenStreetMap for cartographic data
+- Leaflet.js for the mapping library
+- Nominatim for geocoding service
+- Barranquilla community for inspiring this tool
 
-- **OpenStreetMap** por los datos cartográficos
-- **Leaflet.js** por la librería de mapas
-- **Nominatim** por el servicio de geocodificación
-- **Comunidad de Barranquilla** por inspirar esta herramienta
-
-🌟 **¿Te gusta el proyecto?** ¡Dale una estrella en GitHub!
+🌟 **Like the project?** Give it a star on GitHub!
