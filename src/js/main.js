@@ -11,7 +11,7 @@ window.goToLogin = function () {
 
 // Esta función la hacemos global para que el HTML pueda usarla con onclick=""
 window.goToHome = function () {
-    // Redirige a la vista de home
+    // Redirige a la vista de home (página principal)
     const currentPath = window.location.pathname;
     if (currentPath.includes('/views/')) {
         window.location.href = "../../index.html";
@@ -22,11 +22,22 @@ window.goToHome = function () {
 
 // Esta función la hacemos global para que el HTML pueda usarla con onclick=""
 window.goToForm = function () {
-    // Redirige a la vista del formulario
+    // Redirige a la vista del formulario de reportes de daños
     const currentPath = window.location.pathname;
     if (currentPath.includes('/views/')) {
         window.location.href = "form.html";
     } else {
         window.location.href = "./src/views/form.html";
+    }
+}
+
+// Esta función la hacemos global para que el HTML pueda usarla con onclick=""
+window.goToDashboard = function () {
+    // Redirige al dashboard del sistema de reportes
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('/views/')) {
+        window.location.href = "dashboard.html";
+    } else {
+        window.location.href = "./src/views/dashboard.html";
     }
 }

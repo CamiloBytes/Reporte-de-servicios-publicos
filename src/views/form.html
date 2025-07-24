@@ -1,63 +1,132 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8" />
-    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <link rel="stylesheet" href="../css/auth-forms-styles.css">
-    <title>AlertFixer - Formulario de Reporte</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="icon" href="../img/iconic-removebg-preview.png" type="image/x-icon">
+    <title>Sistema de Reportes de Daños - Formulario</title>
 </head>
 
 <body>
-
-    <body>
-        <header class="header">
-            <div class="logo">
-                <img src="../img/iconic-removebg-preview.png" alt="Logo" /> 
+    <header class="header">
+        <div class="logo">
+            <img src="../img/iconic-removebg-preview.png" alt="Logo" /> 
+        </div>
+        <h1><i class="fas fa-exclamation-triangle"></i> REPORTAR DAÑO</h1>
+        <nav>
+            <div class="nav-links-container">
+                <ul class="nav-links">
+                    <li><button onclick="goToHome()" class="btn-login"><i class="fas fa-home"></i> Inicio</button></li>
+                    <li><button onclick="goToLogin()" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</button></li>
+                </ul>
             </div>
-            <h1>FORMULARIO DE REPORTE</h1>
-            <nav>
-                <div class="nav-links-container">
-                    <ul class="nav-links">
-                        <li><button onclick="goToHome()" class="btn-login">Inicio</button></li>
-                        <li><button onclick="goToLogin()" class="btn-login">Login</button></li>
-                    </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="inputs-container" style="max-width: 600px;">
+            <div class="text-center mb-3">
+                <i class="fas fa-file-medical" style="font-size: 3rem; color: var(--primary-red); margin-bottom: 20px;"></i>
+                <h2 style="color: var(--primary-red); margin-bottom: 10px;">Formulario de Reporte de Daño</h2>
+                <p style="color: var(--text-gray); margin-bottom: 30px;">Completa todos los campos para reportar un daño en infraestructura municipal</p>
+            </div>
+
+            <form id="reportForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullName"><i class="fas fa-user"></i> Nombre Completo <span class="required">*</span></label>
+                        <input type="text" id="fullName" name="fullName" placeholder="Ingresa tu nombre completo" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="idNumber"><i class="fas fa-id-card"></i> Número de Identificación <span class="required">*</span></label>
+                        <input type="text" id="idNumber" name="idNumber" placeholder="Número de cédula" required>
+                    </div>
                 </div>
-            </nav>
-        </header>
 
-        <main>
-            <div class="inputs-container">
-                <form id="reportForm">
-                    <label for="fullName">Nombre completo</label>
-                    <input type="text" id="fullName" name="fullName">
-    
-                    <label for="idNumber">Numero de identificacion</label>
-                    <input type="text" id="idNumber" name="idNumber">
-    
-                    <label for="barrio">Barrio de residencia</label>
-                    <select id="barrio">
-                        <option value=""></option>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="barrio"><i class="fas fa-map-marker-alt"></i> Barrio de Residencia <span class="required">*</span></label>
+                        <select id="barrio" name="barrio" required>
+                            <option value="">Selecciona tu barrio</option>
+                            <option value="centro">Centro</option>
+                            <option value="norte">Norte</option>
+                            <option value="sur">Sur</option>
+                            <option value="este">Este</option>
+                            <option value="oeste">Oeste</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address"><i class="fas fa-home"></i> Dirección Específica <span class="required">*</span></label>
+                        <input type="text" id="address" name="address" placeholder="Ej: Calle 123 #45-67" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="damageType"><i class="fas fa-tools"></i> Tipo de Daño <span class="required">*</span></label>
+                    <select id="damageType" name="damageType" required>
+                        <option value="">Selecciona el tipo de daño</option>
+                        <option value="agua">💧 Problemas de Agua (Fugas, tuberías)</option>
+                        <option value="luz">💡 Problemas Eléctricos (Postes, semáforos)</option>
+                        <option value="vias">🛣️ Daños en Vías (Huecos, grietas)</option>
+                        <option value="alcantarilla">🕳️ Alcantarillas (Obstrucciones, roturas)</option>
+                        <option value="parques">🌳 Espacios Públicos (Parques, mobiliario)</option>
+                        <option value="otros">⚠️ Otros daños</option>
                     </select>
-    
-                    <label for="address">Direccion</label>
-                    <input type="text" id="address" name="address">
-    
-                    <label for="description">Descripcion</label>
-                    <textarea id="description" name="description" rows="3"></textarea>
-    
-                    <button id="btn-create">Enviar Reporte</button>
-                </form>
-            </div>
-        </main>
+                </div>
 
-        <footer class="footer">
-            <p>&copy; 2025 AlertFixer. Todos los derechos reservados.</p>
-        </footer>
-        <script type="module" src="../js/form.js"></script>
-    </body>
+                <div class="form-group">
+                    <label for="priority"><i class="fas fa-flag"></i> Nivel de Prioridad <span class="required">*</span></label>
+                    <select id="priority" name="priority" required>
+                        <option value="">Selecciona la prioridad</option>
+                        <option value="baja">🟢 Baja - No es urgente</option>
+                        <option value="media">🟡 Media - Requiere atención</option>
+                        <option value="alta">🟠 Alta - Urgente</option>
+                        <option value="critica">🔴 Crítica - Emergencia</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="description"><i class="fas fa-file-alt"></i> Descripción Detallada <span class="required">*</span></label>
+                    <textarea id="description" name="description" rows="4" 
+                        placeholder="Describe detalladamente el daño encontrado. Incluye información como: ¿Qué tipo de daño es?, ¿Desde cuándo lo has notado?, ¿Afecta a muchas personas?, etc." 
+                        required></textarea>
+                    <div class="help-text">
+                        <i class="fas fa-info-circle"></i> Una descripción detallada ayuda a priorizar y resolver el problema más rápido
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="contactPhone"><i class="fas fa-phone"></i> Teléfono de Contacto (Opcional)</label>
+                    <input type="tel" id="contactPhone" name="contactPhone" placeholder="Ej: 3001234567">
+                    <div class="help-text">
+                        <i class="fas fa-info-circle"></i> Opcional: Para contactarte en caso de necesitar más información
+                    </div>
+                </div>
+
+                <button id="btn-create" type="submit">
+                    <i class="fas fa-paper-plane"></i> Enviar Reporte de Daño
+                </button>
+                
+                <div class="text-center mt-2">
+                    <p style="color: var(--text-gray); font-size: 0.85rem;">
+                        <i class="fas fa-clock"></i> El reporte será procesado en las próximas 24-48 horas hábiles
+                    </p>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p><i class="fas fa-copyright"></i> 2025 Sistema de Reportes de Daños - Gestión Municipal. Todos los derechos reservados.</p>
+    </footer>
+    <script type="module" src="../js/form.js"></script>
+</body>
 
 </html>
