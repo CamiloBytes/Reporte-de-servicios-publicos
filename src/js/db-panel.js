@@ -14,6 +14,9 @@ async function fetchData(url) {
 // Initialize data when DOM is ready
 document.addEventListener('DOMContentLoaded', async () => {
     try {
+        // Wait a bit to ensure other scripts have loaded
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
         // Fetch all data concurrently
         [users, reports, damages] = await Promise.all([
             fetchData(apiUsers),
@@ -21,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             fetchData(apiDamage),
         ]);
 
-        console.log("Datos cargados:", { users, reports, damages });
+        console.log("Datos cargados para tabla:", { users: users?.length, reports: reports?.length, damages: damages?.length });
         
         // Render the table
         renderTable();
@@ -94,11 +97,13 @@ function attachButtonListeners() {
             if (!report || !damageReport) return;
 
             const currentDate = new Date().toLocaleString();
+            let newStatus = "";
 
             if (button.classList.contains("pendiente")) {
                 // Change status from pending to in-process
                 button.classList.replace("pendiente", "proceso");
                 button.textContent = "proceso";
+                newStatus = "proceso";
 
                 const updatedReport = {
                     ...report,
@@ -114,11 +119,20 @@ function attachButtonListeners() {
                     status: "proceso",
                 };
 
+                // Update local arrays
+                const reportIndex = reports.findIndex(r => r.id == reportId);
+                const damageIndex = damages.findIndex(d => d.id == reportId);
+                
+                if (reportIndex !== -1) reports[reportIndex] = updatedReport;
+                if (damageIndex !== -1) damages[damageIndex] = updatedDamage;
+
                 await updateReportAndDamage(reportId, updatedReport, updatedDamage);
+
             } else if (button.classList.contains("proceso")) {
                 // Change status from in-process to resolved
                 button.classList.replace("proceso", "resuelto");
                 button.textContent = "resuelto";
+                newStatus = "resuelto";
 
                 const updatedReport = {
                     ...report,
@@ -134,11 +148,17 @@ function attachButtonListeners() {
                     status: "resuelto",
                 };
 
+                // Update local arrays
+                const reportIndex = reports.findIndex(r => r.id == reportId);
+                const damageIndex = damages.findIndex(d => d.id == reportId);
+                
+                if (reportIndex !== -1) reports[reportIndex] = updatedReport;
+                if (damageIndex !== -1) damages[damageIndex] = updatedDamage;
+
                 await updateReportAndDamage(reportId, updatedReport, updatedDamage);
             }
 
-            // Reload page to reflect the changes (could be optimized)
-            location.reload();
+            console.log(`Estado cambiado a: ${newStatus} para reporte ${reportId}`);
         });
     });
 }
@@ -158,7 +178,7 @@ async function updateReportAndDamage(id, reportData, damageData) {
             body: JSON.stringify(reportData),
         });
 
-        console.log("Datos actualizados correctamente");
+        console.log("Datos actualizados correctamente en servidor");
     } catch (error) {
         console.error("Error actualizando datos:", error);
     }

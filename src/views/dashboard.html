@@ -34,7 +34,7 @@
             <section class="contenido">
                 <div class="tabla-contenedor">
                     <table id="createTable">
-                        
+                        <!-- La tabla se genera por db-panel.js -->
                     </table>
                 </div>
             </section>
@@ -44,9 +44,26 @@
     <footer class="footer">
         <span><i class="fas fa-copyright"></i> 2025 Sistema de Reportes de Daños - Gestión Municipal</span>
     </footer>
+
+    <!-- Scripts en orden específico -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Verificar que json-server esté disponible
+        console.log("Verificando conexión con json-server...");
+        fetch('http://localhost:3000/reports')
+            .then(response => {
+                if (response.ok) {
+                    console.log("✅ JSON Server conectado correctamente");
+                } else {
+                    console.warn("⚠️ JSON Server responde pero con errores");
+                }
+            })
+            .catch(error => {
+                console.error("❌ JSON Server no disponible:", error);
+            });
+    </script>
+    <script type="module" src="../js/dashboard.js"></script>
+    <script type="module" src="../js/db-panel.js"></script>
+    <script type="module" src="../js/maps/mapa.js"></script>
 </body>
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script type="module" src="../js/dashboard.js"></script>
-<script type="module" src="../js/db-panel.js"></script>
-<script type="module" src="../js/maps/mapa.js"></script>
 </html>

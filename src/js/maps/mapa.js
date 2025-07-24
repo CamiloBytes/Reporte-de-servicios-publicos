@@ -24,14 +24,30 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 // Cargar daños al iniciar
 document.addEventListener("DOMContentLoaded", async () => {
     try {
-        const res = await fetch(API_URL)
-        const data = await res.json()
-        for (const danio of data) agregarMarcador(danio)
+        // Esperar un poco para que otros scripts se carguen
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        console.log("Inicializando mapa...");
+        const res = await fetch(API_URL);
+        
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        
+        const data = await res.json();
+        console.log("Datos del mapa cargados:", data?.length, "marcadores");
+        
+        for (const danio of data) {
+            agregarMarcador(danio);
+        }
+        
+        console.log("Mapa inicializado correctamente");
     } catch (error) {
-        alertError("Error al cargar daños")
-        console.error("Error al cargar daños:", error)
+        console.error("Error al cargar daños:", error);
+        // No mostrar alertError que puede causar problemas
+        console.log("Mapa: no se pudieron cargar los daños desde el servidor");
     }
-})
+});
 
 // Reportar nuevo daño
 window.reportarDanio = async function () {
