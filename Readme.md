@@ -208,7 +208,6 @@ npm run test:coverage
 
 Actualmente disponible en:
 - Español (predeterminado)
-- Inglés (la interfaz puede adaptarse)
 
 ## 📊 Rendimiento
 
