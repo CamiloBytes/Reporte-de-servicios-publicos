@@ -1,17 +1,21 @@
 :root {
-    --primary-blue: #1565c0;
-    --light-blue: #2196f3;
-    --hover-blue: #68a7da;
-    --brand-white: #eaf6ea;
-    --soft-gray: #f1f1f1;
-    --text-dark: #333;
-    --focus-glow: #c4d9ff;
-    --highlight-green: #4caf50;
-    --background-dark: #121212;
-    --background-light: #f5f5f5;
-    --background-gray: #f0f0f0;
-    --background-gradient: linear-gradient(135deg, #f0f0f0);
-    --background-light: #fbfbfb;
+    /* Colores institucionales más profesionales */
+    --primary-blue: #1e3a8a;
+    --secondary-blue: #3b82f6;
+    --light-blue: #60a5fa;
+    --hover-blue: #2563eb;
+    --brand-white: #ffffff;
+    --soft-gray: #f8fafc;
+    --text-dark: #1e293b;
+    --text-light: #64748b;
+    --focus-glow: #3b82f6;
+    --highlight-green: #10b981;
+    --background-light: #f8fafc;
+    --accent-yellow: #fbbf24;
+    --shadow-light: rgba(0, 0, 0, 0.05);
+    --shadow-medium: rgba(0, 0, 0, 0.1);
+    --shadow-strong: rgba(0, 0, 0, 0.15);
+    --border-light: #e2e8f0;
 }
 
 /* ===== RESET Y BASE ===== */
@@ -22,87 +26,152 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, var(--background-light) 0%, #dbdbdb 100%);
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(135deg, var(--background-light) 0%, #e0f2fe 50%, #f0f9ff 100%);
     color: var(--text-dark);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    line-height: 1.6;
 }
 
-/* ===== HEADER ===== */
+/* ===== HEADER PROFESIONAL ===== */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1em 2em;
-    background-color: var(--primary-blue);
+    padding: 1.2rem 2.5rem;
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
     color: var(--brand-white);
-    height: 80px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: 85px;
+    box-shadow: 0 4px 20px var(--shadow-medium);
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 1rem;
+    position: relative;
+    backdrop-filter: blur(10px);
+}
+
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-yellow) 0%, var(--highlight-green) 100%);
 }
 
 .logo-container {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    transition: transform 0.3s ease;
+}
+
+.logo-container:hover {
+    transform: scale(1.02);
 }
 
 .logo-container img,
 .logo-container .logo {
-    height: 45px;
-    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    border-radius: 12px;
     border: 2px solid var(--brand-white);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
 }
 
 .brand-name {
-    font-size: 1.7rem;
+    font-size: 1.8rem;
     color: var(--brand-white);
-    font-weight: bold;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* ===== BOTONES ===== */
+/* ===== BOTONES MEJORADOS ===== */
 .btn-login {
-    padding: 0.6em 1.2em;
-    background-color: var(--light-blue);
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, var(--light-blue) 0%, var(--secondary-blue) 100%);
     color: var(--brand-white);
     border: none;
-    border-radius: 6px;
-    font-weight: bold;
+    border-radius: 10px;
+    font-weight: 600;
     cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.3s ease;
+    font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     text-decoration: none;
     display: inline-block;
     text-align: center;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-login::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-login:hover::before {
+    left: 100%;
 }
 
 .btn-login:hover {
-    background-color: var(--hover-blue);
+    background: linear-gradient(135deg, var(--hover-blue) 0%, var(--primary-blue) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
 }
 
 .hero-button {
-    background-color: var(--primary-blue);
-    padding: 1em 2em;
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+    padding: 1.2rem 2.5rem;
     font-size: 1.1rem;
-    border-radius: 8px;
+    border-radius: 12px;
     color: var(--brand-white);
     border: none;
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.hero-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.hero-button:hover::before {
+    left: 100%;
 }
 
 .hero-button:hover {
-    background-color: #1e4666;
+    background: linear-gradient(135deg, var(--hover-blue) 0%, var(--primary-blue) 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(30, 58, 138, 0.4);
 }
 
-/* ===== HERO SECTION ===== */
+/* ===== HERO SECTION MEJORADA ===== */
 .hero {
     position: relative;
-    height: calc(94vh - 81px);
+    height: calc(100vh - 85px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -114,52 +183,125 @@ body {
 .hero-background {
     position: absolute;
     inset: 0;
-    background: url('./imagenes/tecnico_11zon.webp') no-repeat center center/cover;
-    filter: brightness(1.5);
+    background: linear-gradient(135deg, 
+        rgba(30, 58, 138, 0.9) 0%, 
+        rgba(59, 130, 246, 0.8) 50%, 
+        rgba(16, 185, 129, 0.7) 100%),
+        url('./imagenes/tecnico_11zon.webp') no-repeat center center/cover;
+    filter: brightness(1.1) contrast(1.1);
     z-index: 0;
-    background: linear-gradient(260deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, .40));
+}
+
+.hero-background::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
 }
 
 .hero-content {
     position: relative;
     z-index: 1;
-    padding: 2em;
-    max-width: 80vw;
+    padding: 3rem;
+    max-width: 85vw;
     color: white;
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .hero-paragraph {
-    font-size: 3.9rem;
-    font-weight: bold;
-    line-height: 1.3;
-    margin-bottom: 1rem;
+    font-size: clamp(2rem, 5vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    letter-spacing: -1px;
 }
 
 .highlight-green {
-    background-color: rgba(0, 139, 253, 0.699);
-    padding: 0 0.2em;
-    border-radius: 4px;
+    background: linear-gradient(135deg, var(--highlight-green) 0%, var(--accent-yellow) 100%);
+    padding: 0.2em 0.4em;
+    border-radius: 8px;
+    color: var(--text-dark);
+    font-weight: 900;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    position: relative;
+    display: inline-block;
 }
 
-/* ===== FOOTER ===== */
+.highlight-green::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.2));
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+/* ===== FOOTER PROFESIONAL ===== */
 .footer {
     text-align: center;
-    padding: 1.5em;
-    background-color: var(--primary-blue);
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
     color: var(--brand-white);
     font-size: 0.9rem;
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 -4px 20px var(--shadow-medium);
     margin-top: auto;
+    position: relative;
 }
 
-/* ===== RESPONSIVE ===== */
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-yellow) 0%, var(--highlight-green) 100%);
+}
+
+/* ===== EFECTOS ADICIONALES ===== */
+.hero-content::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: pulse 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.1;
+        transform: scale(1.1);
+    }
+}
+
+/* ===== RESPONSIVE MEJORADO ===== */
 @media (max-width: 1366px) and (min-width: 1024px) {
     .header {
-        padding: 12px 30px;
+        padding: 1rem 2rem;
     }
 
     .btn-login {
-        padding: 10px 20px;
+        padding: 0.7rem 1.3rem;
     }
 }
 
@@ -168,50 +310,62 @@ body {
         flex-direction: column;
         text-align: center;
         height: auto;
-        gap: 10px;
+        gap: 1rem;
+        padding: 1.5rem;
     }
 
     .hero-paragraph {
-        font-size: 1.6rem;
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+    }
+
+    .hero-content {
+        padding: 2rem;
     }
 }
 
 @media (max-width: 768px) {
     .logo-container img,
     .logo-container .logo {
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
+    }
+
+    .brand-name {
+        font-size: 1.6rem;
     }
 
     .btn-login,
     .hero-button {
-        padding: 10px 18px;
-        font-size: 0.95rem;
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
     }
 
     .footer {
         font-size: 0.8rem;
+        padding: 1.5rem;
     }
 
     .hero-paragraph {
-        font-size: 1.3rem;
+        font-size: clamp(1.5rem, 4vw, 2rem);
     }
 }
 
 @media (max-width: 600px) {
     .header {
-        flex-direction: column;
-        align-items: flex-start;
-        height: auto;
-        gap: 10px;
+        padding: 1rem;
     }
 
     .hero-paragraph {
-        font-size: 1.5rem;
+        font-size: clamp(1.3rem, 4vw, 1.8rem);
     }
 
     .hero-button {
         width: 100%;
+        padding: 1rem;
+    }
+
+    .hero-content {
+        padding: 1.5rem;
     }
 }
 
@@ -222,6 +376,10 @@ body {
     }
 
     .hero-paragraph {
-        font-size: 1.1rem;
+        font-size: clamp(1.2rem, 4vw, 1.5rem);
+    }
+
+    .brand-name {
+        font-size: 1.4rem;
     }
 }
