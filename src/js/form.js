@@ -146,7 +146,7 @@ async function newUser() {
     };
 
     try {
-        let response = await fetch("http://localhost:3000/users", {
+        let response = await fetch("http://localhost:3000/clientes", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

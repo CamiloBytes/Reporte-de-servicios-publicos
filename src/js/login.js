@@ -1,29 +1,7 @@
 import { authData } from './auth-data.js';
 
 // Usuarios de prueba como fallback si no hay json-server
-const fallbackUsers = [
-    {
-        id: "1",
-        name: "Administrador",
-        email: "admin@sistema.com",
-        password: "admin123",
-        role: "admin"
-    },
-    {
-        id: "2",
-        name: "Usuario Visitante",
-        email: "user@sistema.com", 
-        password: "user123",
-        role: "visitor"
-    },
-    {
-        id: "3",
-        name: "Juan Pérez",
-        email: "juan@correo.com",
-        password: "123456",
-        role: "visitor"
-    }
-];
+
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log("Login page loaded");

@@ -2,7 +2,7 @@ const apiUsers = "http://localhost:3000/users";
 const apiReports = "http://localhost:3000/reports";
 const apiDamage = "http://localhost:3000/damage";
 
-let users, reports, damages;
+const statusElement = document.getElementById("status");
 
 // Fetch data from a given URL and return parsed JSON
 async function fetchData(url) {
@@ -11,36 +11,16 @@ async function fetchData(url) {
     return await response.json();
 }
 
-// Initialize data when DOM is ready
-document.addEventListener('DOMContentLoaded', async () => {
-    try {
-        // Wait a bit to ensure other scripts have loaded
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        // Fetch all data concurrently
-        [users, reports, damages] = await Promise.all([
-            fetchData(apiUsers),
-            fetchData(apiReports),
-            fetchData(apiDamage),
-        ]);
-
-        console.log("Datos cargados para tabla:", { users: users?.length, reports: reports?.length, damages: damages?.length });
-        
-        // Render the table
-        renderTable();
-    } catch (error) {
-        console.error("Error loading data:", error);
-    }
-});
+// Fetch all data concurrently
+const [users, reports, damages] = await Promise.all([
+    fetchData(apiUsers),
+    fetchData(apiReports),
+    fetchData(apiDamage),
+]);
 
 // Render the reports table inside the page
 function renderTable() {
     const tableContainer = document.getElementById("createTable");
-
-    if (!tableContainer) {
-        console.error("No se encontró el elemento createTable");
-        return;
-    }
 
     // Build the table header and start tbody
     let tableHTML = `
@@ -97,13 +77,11 @@ function attachButtonListeners() {
             if (!report || !damageReport) return;
 
             const currentDate = new Date().toLocaleString();
-            let newStatus = "";
 
             if (button.classList.contains("pendiente")) {
                 // Change status from pending to in-process
                 button.classList.replace("pendiente", "proceso");
                 button.textContent = "proceso";
-                newStatus = "proceso";
 
                 const updatedReport = {
                     ...report,
@@ -119,20 +97,11 @@ function attachButtonListeners() {
                     status: "proceso",
                 };
 
-                // Update local arrays
-                const reportIndex = reports.findIndex(r => r.id == reportId);
-                const damageIndex = damages.findIndex(d => d.id == reportId);
-                
-                if (reportIndex !== -1) reports[reportIndex] = updatedReport;
-                if (damageIndex !== -1) damages[damageIndex] = updatedDamage;
-
                 await updateReportAndDamage(reportId, updatedReport, updatedDamage);
-
             } else if (button.classList.contains("proceso")) {
                 // Change status from in-process to resolved
                 button.classList.replace("proceso", "resuelto");
                 button.textContent = "resuelto";
-                newStatus = "resuelto";
 
                 const updatedReport = {
                     ...report,
@@ -148,38 +117,29 @@ function attachButtonListeners() {
                     status: "resuelto",
                 };
 
-                // Update local arrays
-                const reportIndex = reports.findIndex(r => r.id == reportId);
-                const damageIndex = damages.findIndex(d => d.id == reportId);
-                
-                if (reportIndex !== -1) reports[reportIndex] = updatedReport;
-                if (damageIndex !== -1) damages[damageIndex] = updatedDamage;
-
                 await updateReportAndDamage(reportId, updatedReport, updatedDamage);
             }
 
-            console.log(`Estado cambiado a: ${newStatus} para reporte ${reportId}`);
+            // Reload page to reflect the changes (could be optimized)
+            location.reload();
         });
     });
 }
 
 // Send PUT requests to update report and damage records
 async function updateReportAndDamage(id, reportData, damageData) {
-    try {
-        await fetch(`${apiDamage}/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(damageData),
-        });
+    await fetch(`${apiDamage}/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(damageData),
+    });
 
-        await fetch(`${apiReports}/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(reportData),
-        });
-
-        console.log("Datos actualizados correctamente en servidor");
-    } catch (error) {
-        console.error("Error actualizando datos:", error);
-    }
+    await fetch(`${apiReports}/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(reportData),
+    });
 }
+
+// Start rendering the table
+renderTable();

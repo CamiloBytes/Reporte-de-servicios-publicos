@@ -1,11 +1,6 @@
 {
   "users": [
     {
-      "id": "1",
-      "email": "exaple@example.com",
-      "password": "12345678"
-    },
-    {
       "id": "admin",
       "name": "Administrador del Sistema",
       "email": "admin@sistema.com",
@@ -13,219 +8,225 @@
       "role": "admin"
     },
     {
-      "id": "user",
-      "name": "Usuario Visitante",
-      "email": "user@sistema.com",
-      "password": "user123",
-      "role": "visitor"
+      "id": "dcc2",
+      "name": "sebas",
+      "CC": "10450132015",
+      "phone": null,
+      "registeredAt": "2025-07-24T21:23:18.644Z"
     },
     {
-      "id": "juan",
-      "name": "Juan Pérez",
-      "email": "juan@correo.com",
-      "password": "123456",
-      "role": "visitor"
+      "id": "671e",
+      "name": "reinaldo",
+      "CC": "101248046512",
+      "phone": null,
+      "registeredAt": "2025-07-24T21:31:17.062Z"
+    }
+  ],
+  "clientes": [
+    {
+      "id": "7739",
+      "name": "keyner",
+      "CC": "1044603308",
+      "phone": null,
+      "registeredAt": "2025-07-24T21:55:57.101Z"
     },
     {
-      "id": "ef37",
-      "name": "jonathan",
-      "CC": "12345"
-    },
-    {
-      "id": "514d",
-      "name": "jonathan",
-      "CC": "12344"
-    },
-    {
-      "id": "7f24",
-      "name": "jonathan",
-      "CC": "13246841245"
-    },
-    {
-      "id": "0cb3",
-      "name": "jonathan",
-      "CC": "1044603308"
-    },
-    {
-      "id": "7e51",
-      "name": "jonathan",
-      "CC": "12321354564"
-    },
-    {
-      "id": "9b70",
-      "name": "jonathan",
-      "CC": "10658541388"
+      "id": "efad",
+      "name": "camilo",
+      "CC": "1043136986",
+      "phone": null,
+      "registeredAt": "2025-07-24T22:01:36.342Z"
     }
   ],
   "reports": [
     {
-      "id": "c3d4cea4-c8af-42d9-a1ad-f104403ca893",
-      "ccUser": "12345",
-      "address": "Calle 58 # 43 - 32",
-      "description": "Fuga de agua en la tubería principal - Reportado por ciudadano",
-      "barrio": "Boston",
-      "dataTime": {
-        "timeCreateReport": "22/7/2025, 7:11:15 p. m.",
-        "timeProcessReport": "23/7/2025, 3:24:53 p. m.",
-        "timeFinishReport": "23/7/2025, 3:24:53 p. m."
-      },
-      "status": "recibido"
-    },
-    {
-      "id": "50cafbb8-36a3-46c2-9e6e-eb786126eea3",
-      "ccUser": "12344",
-      "address": "Calle 58 # 43 - 32",
-      "description": "Poste de luz averiado después de tormenta",
-      "barrio": "Boston",
-      "dataTime": {
-        "timeCreateReport": "22/7/2025, 7:16:16 p. m.",
-        "timeProcessReport": "22/7/2025, 7:16:31 p. m.",
-        "timeFinishReport": "23/7/2025, 3:21:17 p. m."
-      },
-      "status": "proceso"
-    },
-    {
-      "id": "a07ab864-dfe5-4acb-99e2-170836418884",
-      "ccUser": "13246841245",
-      "address": "Carrera 10 #25-30",
-      "description": "Hueco grande en la vía que afecta el tránsito",
-      "barrio": "Centro",
-      "dataTime": {
-        "timeCreateReport": "22/7/2025, 7:26:19 p. m.",
-        "timeProcessReport": "22/7/2025, 7:32:02 p. m.",
-        "timeFinishReport": "22/7/2025, 7:32:03 p. m."
-      },
-      "status": "resuelto"
-    },
-    {
-      "id": "138ccf2d-f4c2-47bd-885c-74015fe22b14",
-      "ccUser": "1044603308",
+      "id": "6441a739-7a54-48c3-8d76-9361a896aeb1",
+      "ccUser": "1043136986",
+      "userName": "camilo",
       "address": "carrera 15#15-30",
-      "description": "Alcantarilla obstruida genera mal olor",
-      "barrio": "La Playa",
-      "dataTime": {
-        "timeCreateReport": "22/7/2025, 7:28:54 p. m.",
-        "timeProcessReport": "23/7/2025, 3:25:04 p. m.",
-        "timeFinishReport": "23/7/2025, 3:25:04 p. m."
-      },
-      "status": "recibido"
-    },
-    {
-      "id": "90b19268-13b2-4618-99b9-73809b9af143",
-      "ccUser": "12321354564",
-      "address": "carrera 15#15-30",
-      "description": "Semáforo dañado en intersección principal",
+      "fullAddress": "carrera 15#15-30, Eduardo Santos La Playa, Barranquilla, Colombia",
+      "description": "Se daño el tubo madre y no tenemos agua hace 2 dias",
       "barrio": "Eduardo Santos La Playa",
+      "damageType": "agua",
+      "priority": "critica",
+      "contactPhone": null,
       "dataTime": {
-        "timeCreateReport": "22/7/2025, 7:31:20 p. m.",
-        "timeProcessReport": "22/7/2025, 7:31:44 p. m.",
-        "timeFinishReport": "23/7/2025, 3:25:05 p. m."
+        "timeCreateReport": "24/07/2025, 17:01:36",
+        "timeProcessReport": null,
+        "timeFinishReport": null
       },
-      "status": "proceso"
-    },
-    {
-      "id": "aa92b3a1-1bac-414a-aa7b-728698e69ec9",
-      "ccUser": "10658541388",
-      "address": "Carrera 31 #115-34",
-      "description": "Falla eléctrica en todo el sector",
-      "barrio": "La Pradera",
-      "dataTime": {
-        "timeCreateReport": "23/7/2025, 3:28:09 p. m.",
-        "timeProcessReport": "23/7/2025, 3:28:41 p. m.",
-        "timeFinishReport": "23/7/2025, 3:33:30 p. m."
-      },
-      "status": "resuelto"
+      "status": "recibido"
     }
   ],
   "damage": [
     {
-      "id": "c3d4cea4-c8af-42d9-a1ad-f104403ca893",
-      "ccUser": "12345",
-      "address": "Calle 58 # 43 - 32",
-      "lat": 6.2497917,
-      "lon": -75.5553792,
-      "status": "recibido"
-    },
-    {
-      "id": "50cafbb8-36a3-46c2-9e6e-eb786126eea3",
-      "ccUser": "12344",
-      "address": "Calle 58 # 43 - 32",
-      "lat": 10.9857638,
-      "lon": -74.7956902,
-      "status": "proceso"
-    },
-    {
-      "id": "a07ab864-dfe5-4acb-99e2-170836418884",
-      "ccUser": "13246841245",
-      "address": "Carrera 10 #25-30",
-      "lat": 11.0101922,
-      "lon": -74.8231794,
-      "status": "resuelto"
-    },
-    {
-      "id": "138ccf2d-f4c2-47bd-885c-74015fe22b14",
-      "ccUser": "1044603308",
-      "address": "carrera 15#15-30",
-      "lat": 7.9830383,
-      "lon": -75.1998165,
-      "status": "recibido"
-    },
-    {
-      "id": "90b19268-13b2-4618-99b9-73809b9af143",
-      "ccUser": "12321354564",
-      "address": "carrera 15#15-30",
+      "id": "6441a739-7a54-48c3-8d76-9361a896aeb1",
+      "ccUser": "1043136986",
+      "address": "carrera 15#15-30, Eduardo Santos La Playa, Barranquilla, Colombia",
       "lat": 11.0303082,
       "lon": -74.8673785,
-      "status": "proceso"
-    },
-    {
-      "id": "aa92b3a1-1bac-414a-aa7b-728698e69ec9",
-      "ccUser": "10658541388",
-      "address": "Carrera 31 #115-34",
-      "lat": 10.9778929,
-      "lon": -74.840979,
-      "status": "resuelto"
+      "status": "recibido",
+      "damageType": "agua",
+      "priority": "critica",
+      "description": "Se daño el tubo madre y no tenemos agua hace 2 dias"
     }
   ],
   "barrios": [
-    { "id": 1, "name": "El Prado" },
-    { "id": 2, "name": "Alto Prado" },
-    { "id": 3, "name": "Ciudad Jardín" },
-    { "id": 4, "name": "Villa Carolina" },
-    { "id": 5, "name": "Riomar" },
-    { "id": 6, "name": "La Campiña" },
-    { "id": 7, "name": "Miramar" },
-    { "id": 8, "name": "Villa Santos" },
-    { "id": 9, "name": "Boston" },
-    { "id": 10, "name": "Lucero" },
-    { "id": 11, "name": "Los Andes" },
-    { "id": 12, "name": "Las Delicias" },
-    { "id": 13, "name": "Los Nogales" },
-    { "id": 14, "name": "San Isidro" },
-    { "id": 15, "name": "El Recreo" },
-    { "id": 16, "name": "La Concepción" },
-    { "id": 17, "name": "Los Robles" },
-    { "id": 18, "name": "Ciudadela 20 de Julio" },
-    { "id": 19, "name": "Siete de Abril" },
-    { "id": 20, "name": "Carrizal" },
-    { "id": 21, "name": "El Bosque" },
-    { "id": 22, "name": "La Sierrita" },
-    { "id": 23, "name": "San Roque" },
-    { "id": 24, "name": "Rebolo" },
-    { "id": 25, "name": "Montecristo" },
-    { "id": 26, "name": "Centro" },
-    { "id": 27, "name": "La Luz" },
-    { "id": 28, "name": "Simón Bolívar" },
-    { "id": 29, "name": "Las Nieves" },
-    { "id": 30, "name": "Las Malvinas" },
-    { "id": 31, "name": "Eduardo Santos La Playa" },
-    { "id": 32, "name": "La Pradera" },
-    { "id": 33, "name": "Buena Esperanza" },
-    { "id": 34, "name": "Loma Fresca" },
-    { "id": 35, "name": "El Ferry" },
-    { "id": 36, "name": "Pumarejo" },
-    { "id": 37, "name": "Villa Estadio" },
-    { "id": 38, "name": "Soledad 2000" },
-    { "id": 39, "name": "Buenos Aires" }
+    {
+      "id": "1",
+      "name": "El Prado"
+    },
+    {
+      "id": "2",
+      "name": "Alto Prado"
+    },
+    {
+      "id": "3",
+      "name": "Ciudad Jardín"
+    },
+    {
+      "id": "4",
+      "name": "Villa Carolina"
+    },
+    {
+      "id": "5",
+      "name": "Riomar"
+    },
+    {
+      "id": "6",
+      "name": "La Campiña"
+    },
+    {
+      "id": "7",
+      "name": "Miramar"
+    },
+    {
+      "id": "8",
+      "name": "Villa Santos"
+    },
+    {
+      "id": "9",
+      "name": "Boston"
+    },
+    {
+      "id": "10",
+      "name": "Lucero"
+    },
+    {
+      "id": "11",
+      "name": "Los Andes"
+    },
+    {
+      "id": "12",
+      "name": "Las Delicias"
+    },
+    {
+      "id": "13",
+      "name": "Los Nogales"
+    },
+    {
+      "id": "14",
+      "name": "San Isidro"
+    },
+    {
+      "id": "15",
+      "name": "El Recreo"
+    },
+    {
+      "id": "16",
+      "name": "La Concepción"
+    },
+    {
+      "id": "17",
+      "name": "Los Robles"
+    },
+    {
+      "id": "18",
+      "name": "Ciudadela 20 de Julio"
+    },
+    {
+      "id": "19",
+      "name": "Siete de Abril"
+    },
+    {
+      "id": "20",
+      "name": "Carrizal"
+    },
+    {
+      "id": "21",
+      "name": "El Bosque"
+    },
+    {
+      "id": "22",
+      "name": "La Sierrita"
+    },
+    {
+      "id": "23",
+      "name": "San Roque"
+    },
+    {
+      "id": "24",
+      "name": "Rebolo"
+    },
+    {
+      "id": "25",
+      "name": "Montecristo"
+    },
+    {
+      "id": "26",
+      "name": "Centro"
+    },
+    {
+      "id": "27",
+      "name": "La Luz"
+    },
+    {
+      "id": "28",
+      "name": "Simón Bolívar"
+    },
+    {
+      "id": "29",
+      "name": "Las Nieves"
+    },
+    {
+      "id": "30",
+      "name": "Las Malvinas"
+    },
+    {
+      "id": "31",
+      "name": "Eduardo Santos La Playa"
+    },
+    {
+      "id": "32",
+      "name": "La Pradera"
+    },
+    {
+      "id": "33",
+      "name": "Buena Esperanza"
+    },
+    {
+      "id": "34",
+      "name": "Loma Fresca"
+    },
+    {
+      "id": "35",
+      "name": "El Ferry"
+    },
+    {
+      "id": "36",
+      "name": "Pumarejo"
+    },
+    {
+      "id": "37",
+      "name": "Villa Estadio"
+    },
+    {
+      "id": "38",
+      "name": "Soledad 2000"
+    },
+    {
+      "id": "39",
+      "name": "Buenos Aires"
+    }
   ]
 }
