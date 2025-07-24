@@ -250,9 +250,9 @@ This project is under the MIT License - see the [LICENSE.md](LICENSE.md) file fo
 ## 👥 Authors
 
 - Camilo Parra
-- Keyner Barrio
+- Keyner Barrios
 - Luis Cera
-- Jonathan Lopes
+- Jonathan Lopez
 - Martha Garcia
 - Reinaldo Leal
 
