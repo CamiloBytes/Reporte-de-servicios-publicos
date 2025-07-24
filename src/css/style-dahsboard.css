@@ -31,6 +31,7 @@ body {
     z-index: 1000;
 }
 
+/* Estilos para el header con botón de logout */
 .header-content {
     display: flex;
     justify-content: space-between;
@@ -44,11 +45,6 @@ body {
     font-size: 24px;
     font-weight: 600;
     letter-spacing: 0.5px;
-}
-
-.header-content h1 i {
-    margin-right: 10px;
-    color: #ffeb3b;
 }
 
 .user-controls {
@@ -107,7 +103,7 @@ main {
     top: 100px;
 }
 
-.sidebar-header h2 {
+.sidebar h2 {
     color: #d32f2f;
     font-size: 18px;
     margin-bottom: 20px;
@@ -116,53 +112,8 @@ main {
     border-bottom: 2px solid #ffeb3b;
 }
 
-.stats-container {
-    margin-bottom: 25px;
-}
-
-.stat-card {
-    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 10px;
-    border-left: 4px solid #d32f2f;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    transition: transform 0.2s ease;
-}
-
-.stat-card:hover {
-    transform: translateY(-2px);
-}
-
-.stat-card h3 {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 5px;
-}
-
-.stat-number {
-    font-size: 24px;
-    font-weight: bold;
-    color: #d32f2f;
-}
-
-.stat-number.pending {
-    color: #ff9800;
-}
-
-.stat-number.completed {
-    color: #4caf50;
-}
-
-.map-container {
-    margin-top: 20px;
-}
-
-.map-container h3 {
-    color: #d32f2f;
-    font-size: 16px;
-    margin-bottom: 10px;
-    text-align: center;
+.sidebar span {
+    font-weight: normal;
 }
 
 .sidebar ul {
@@ -207,60 +158,6 @@ main {
     border-radius: 15px;
     padding: 25px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-.content-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid #e0e0e0;
-}
-
-.content-header h2 {
-    color: #d32f2f;
-    font-size: 20px;
-    font-weight: 600;
-}
-
-.filter-controls {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-.filter-select {
-    padding: 8px 12px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    background: white;
-    color: #333;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.filter-select:focus {
-    outline: none;
-    border-color: #d32f2f;
-    box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
-}
-
-.refresh-btn {
-    background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: all 0.3s ease;
-}
-
-.refresh-btn:hover {
-    background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
-    transform: translateY(-1px);
 }
 
 .tabla-contenedor {
@@ -321,7 +218,7 @@ tbody tr:hover {
     background-color: #f8f9fa;
 }
 
-/* BADGE STYLES */
+/* BADGE STYLES (para los estados) */
 .badge {
     padding: 6px 12px;
     border-radius: 20px;
@@ -330,6 +227,28 @@ tbody tr:hover {
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Estados de los reportes */
+.pendiente {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); /* Rojo */
+}
+
+.proceso {
+    background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%); /* Amarillo */
+    color: #000;
+}
+
+.resuelto {
+    background: linear-gradient(135deg, #28a745 0%, #218838 100%); /* Verde */
 }
 
 .bg-success {
@@ -431,16 +350,6 @@ tbody tr:hover {
         flex-direction: column;
         gap: 10px;
         text-align: center;
-    }
-    
-    .content-header {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
-    
-    .filter-controls {
-        justify-content: center;
     }
     
     #map {

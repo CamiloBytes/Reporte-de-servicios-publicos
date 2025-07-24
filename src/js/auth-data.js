@@ -13,8 +13,6 @@ export const authData = {
     // Re-exportar funciones de datos
     data: data,
     
-    // Funciones integradas que combinan auth + data
-    
     /**
      * Realiza una petición GET con verificación automática de autenticación
      */
