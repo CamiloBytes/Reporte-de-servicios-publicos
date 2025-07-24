@@ -4,6 +4,7 @@ import { alertError } from './alert.js';
 // Variable global para almacenar los reportes
 let allReports = [];
 let currentUser = null;
+let isLoadingData = false; // Prevenir cargas múltiples
 
 // Inicializar página con protección de autenticación
 document.addEventListener('DOMContentLoaded', async () => {
@@ -20,7 +21,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     } catch (error) {
         console.error("Error inicializando dashboard:", error);
-        authData.handleAuthError(error);
+        // No usar authData.handleAuthError para evitar redirecciones excesivas
+        showErrorMessage("Error inicializando el dashboard");
     }
 });
 
@@ -37,6 +39,8 @@ function setupEventListeners() {
     const refreshBtn = document.getElementById('refresh-btn');
     if (refreshBtn) {
         refreshBtn.addEventListener('click', async function() {
+            if (isLoadingData) return; // Prevenir clicks múltiples
+            
             this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Actualizando...';
             this.disabled = true;
             
@@ -44,7 +48,7 @@ function setupEventListeners() {
                 await loadDashboardData();
                 showSuccessMessage('Datos actualizados correctamente');
             } catch (error) {
-                alertError('Error al actualizar los datos');
+                showErrorMessage('Error al actualizar los datos');
             } finally {
                 this.innerHTML = '<i class="fas fa-sync-alt"></i> Actualizar';
                 this.disabled = false;
@@ -53,8 +57,37 @@ function setupEventListeners() {
     }
 }
 
+function showErrorMessage(message) {
+    // Crear notificación temporal de error sin usar alertError que puede causar recargas
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        z-index: 1001;
+        animation: slideIn 0.3s ease;
+    `;
+    notification.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => notification.remove(), 5000);
+    }, 5000);
+}
+
 async function initializeDashboard() {
+    if (isLoadingData) return;
+    
     try {
+        isLoadingData = true;
+        
         // Obtener datos del usuario actual
         currentUser = authData.auth.getUserLocal();
         console.log("Usuario actual:", currentUser);
@@ -70,7 +103,9 @@ async function initializeDashboard() {
         
     } catch (error) {
         console.error("Error cargando dashboard:", error);
-        alertError("Error cargando los datos del dashboard");
+        showErrorMessage("Error cargando los datos del dashboard");
+    } finally {
+        isLoadingData = false;
     }
 }
 
@@ -119,16 +154,30 @@ function showSuccessMessage(message) {
 }
 
 async function loadDashboardData() {
+    if (isLoadingData) return;
+    
     try {
-        // Usar el sistema integrado para obtener datos con autenticación
-        const users = await authData.secureGet("/users", true);
-        const reports = await authData.secureGet("/reports", true);
+        isLoadingData = true;
         
-        console.log("Usuarios:", users);
-        console.log("Reportes:", reports);
-        
-        // Almacenar reportes globalmente para filtrado
-        allReports = reports || [];
+        // Intentar usar datos del servidor primero
+        try {
+            const users = await authData.secureGet("/users", true);
+            const reports = await authData.secureGet("/reports", true);
+            
+            console.log("Usuarios:", users);
+            console.log("Reportes:", reports);
+            
+            // Almacenar reportes si hay datos válidos
+            if (reports && Array.isArray(reports)) {
+                allReports = reports;
+            } else {
+                throw new Error("No hay datos válidos del servidor");
+            }
+        } catch (serverError) {
+            console.log("No se pudo conectar al servidor, usando datos de ejemplo:", serverError);
+            // Usar datos de ejemplo si no hay servidor disponible
+            allReports = generateExampleData();
+        }
         
         // Crear la tabla con los datos
         await createTable(allReports);
@@ -138,14 +187,14 @@ async function loadDashboardData() {
         
     } catch (error) {
         console.error("Error cargando datos:", error);
+        showErrorMessage("Error cargando los datos");
         
-        // Si no hay datos del servidor, usar datos de ejemplo
-        const exampleReports = generateExampleData();
-        allReports = exampleReports;
-        await createTable(exampleReports);
-        updateStats(exampleReports);
-        
-        console.log("Usando datos de ejemplo");
+        // Como último recurso, usar datos de ejemplo vacíos
+        allReports = [];
+        await createTable(allReports);
+        updateStats(allReports);
+    } finally {
+        isLoadingData = false;
     }
 }
 
@@ -155,7 +204,7 @@ function generateExampleData() {
             id: '1',
             cedula: '12345678',
             direccion: 'Calle 123 #45-67, Barrio Centro',
-            hora: '2025-01-14 08:30',
+            hora: '2025-01-14T08:30:00',
             descripcion: 'Fuga de agua en la tubería principal',
             estado: 'pendiente'
         },
@@ -163,7 +212,7 @@ function generateExampleData() {
             id: '2',
             cedula: '87654321',
             direccion: 'Carrera 15 #32-10, Barrio Norte',
-            hora: '2025-01-14 10:15',
+            hora: '2025-01-14T10:15:00',
             descripcion: 'Poste de luz averiado',
             estado: 'en_proceso'
         },
@@ -171,7 +220,7 @@ function generateExampleData() {
             id: '3',
             cedula: '11223344',
             direccion: 'Avenida 20 #15-30, Barrio Sur',
-            hora: '2025-01-13 16:45',
+            hora: '2025-01-13T16:45:00',
             descripcion: 'Hueco en la vía principal',
             estado: 'completado'
         },
@@ -179,7 +228,7 @@ function generateExampleData() {
             id: '4',
             cedula: '55667788',
             direccion: 'Calle 8 #12-25, Barrio Este',
-            hora: '2025-01-13 14:20',
+            hora: '2025-01-13T14:20:00',
             descripcion: 'Alcantarilla obstruida',
             estado: 'pendiente'
         },
@@ -187,7 +236,7 @@ function generateExampleData() {
             id: '5',
             cedula: '99887766',
             direccion: 'Carrera 25 #8-15, Barrio Oeste',
-            hora: '2025-01-12 11:30',
+            hora: '2025-01-12T11:30:00',
             descripcion: 'Semáforo dañado en intersección',
             estado: 'completado'
         }
@@ -214,7 +263,7 @@ async function createTable(reports) {
     if (!reports || reports.length === 0) {
         tableContainer.innerHTML = `
             <div style="text-align: center; padding: 40px; color: #666;">
-                <i class="fas fa-inbox" style="font-size: 48px; margin-bottom: 20px;"></i>
+                <i class="fas fa-inbox" style="font-size: 48px; margin-bottom: 20px; color: #d32f2f;"></i>
                 <h3>No hay reportes disponibles</h3>
                 <p>No se encontraron reportes con los filtros seleccionados</p>
             </div>
@@ -238,6 +287,8 @@ async function createTable(reports) {
     `;
     
     for (let report of reports) {
+        const isAdmin = authData.canAccess && authData.canAccess('admin');
+        
         tableHTML += `
             <tr>
                 <td>${report.cedula || 'N/A'}</td>
@@ -253,7 +304,7 @@ async function createTable(reports) {
                     <button class="btn btn-sm btn-primary" onclick="viewReport('${report.id}')">
                         <i class="fas fa-eye"></i> Ver
                     </button>
-                    ${authData.canAccess('admin') ? 
+                    ${isAdmin ? 
                         `<button class="btn btn-sm btn-success ms-1" onclick="updateReportStatus('${report.id}', 'completado')">
                             <i class="fas fa-check"></i> Completar
                         </button>` : ''
@@ -272,6 +323,7 @@ async function createTable(reports) {
 }
 
 function truncateText(text, maxLength) {
+    if (!text) return 'N/A';
     if (text.length <= maxLength) return text;
     return text.substring(0, maxLength) + '...';
 }
@@ -351,13 +403,11 @@ window.viewReport = async function(reportId) {
         if (report) {
             showReportModal(report);
         } else {
-            // Intentar obtener del servidor
-            const serverReport = await authData.secureGet(`/reports/${reportId}`, true);
-            showReportModal(serverReport);
+            showErrorMessage("Reporte no encontrado");
         }
     } catch (error) {
         console.error("Error obteniendo reporte:", error);
-        alertError("Error cargando el reporte");
+        showErrorMessage("Error cargando el reporte");
     }
 };
 
@@ -418,8 +468,8 @@ function showReportModal(report) {
 
 window.updateReportStatus = async function(reportId, newStatus) {
     try {
-        if (!authData.canAccess('admin')) {
-            alertError("No tienes permisos para realizar esta acción");
+        if (!authData.canAccess || !authData.canAccess('admin')) {
+            showErrorMessage("No tienes permisos para realizar esta acción");
             return;
         }
         
@@ -430,16 +480,6 @@ window.updateReportStatus = async function(reportId, newStatus) {
             allReports[reportIndex].updatedAt = new Date().toISOString();
         }
         
-        try {
-            // Intentar actualizar en el servidor
-            await authData.securePut(`/reports/${reportId}`, { 
-                estado: newStatus,
-                updatedAt: new Date().toISOString()
-            }, true);
-        } catch (serverError) {
-            console.log("Error del servidor, usando actualización local:", serverError);
-        }
-        
         // Recargar la vista
         const currentFilter = document.getElementById('status-filter')?.value || '';
         filterReports(currentFilter);
@@ -448,7 +488,7 @@ window.updateReportStatus = async function(reportId, newStatus) {
         
     } catch (error) {
         console.error("Error actualizando reporte:", error);
-        alertError("Error actualizando el reporte");
+        showErrorMessage("Error actualizando el reporte");
     }
 };
 
@@ -481,18 +521,8 @@ window.logout = function() {
     }
 };
 
-// Refrescar datos cada 2 minutos (opcional)
-setInterval(async () => {
-    if (authData.auth.isAuthenticated()) {
-        try {
-            await authData.auth.validateSession();
-            await loadDashboardData();
-            console.log("Datos actualizados automáticamente");
-        } catch (error) {
-            console.log("Error en actualización automática:", error);
-        }
-    }
-}, 120000); // 2 minutos
+// ELIMINADO: Auto-refresh que causaba recargas excesivas
+// No hay más auto-refresh automático para evitar problemas
 
 // Agregar estilos CSS para animaciones
 const style = document.createElement('style');
