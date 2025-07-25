@@ -163,7 +163,7 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    min-height: calc(100vh - 160px);
+    height: 84.4vh;
     overflow: hidden;
 }
 

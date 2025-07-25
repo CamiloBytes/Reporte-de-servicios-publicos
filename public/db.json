@@ -36,6 +36,13 @@
       "CC": "1043136986",
       "phone": null,
       "registeredAt": "2025-07-24T22:01:36.342Z"
+    },
+    {
+      "id": "36ae",
+      "name": "jose",
+      "CC": "135456032541",
+      "phone": null,
+      "registeredAt": "2025-07-25T18:24:32.518Z"
     }
   ],
   "reports": [
@@ -52,6 +59,24 @@
       "contactPhone": null,
       "dataTime": {
         "timeCreateReport": "24/07/2025, 17:01:36",
+        "timeProcessReport": "7/24/2025, 5:20:12 PM",
+        "timeFinishReport": "7/24/2025, 5:20:15 PM"
+      },
+      "status": "resuelto"
+    },
+    {
+      "id": "106af895-4fbe-4898-a714-c7863fab0f35",
+      "ccUser": "135456032541",
+      "userName": "jose",
+      "address": "calle 72#5-1",
+      "fullAddress": "calle 72#5-1, El Prado, Barranquilla, Colombia",
+      "description": "dgsg",
+      "barrio": "El Prado",
+      "damageType": "agua",
+      "priority": "alta",
+      "contactPhone": null,
+      "dataTime": {
+        "timeCreateReport": "25/07/2025, 13:24:32",
         "timeProcessReport": null,
         "timeFinishReport": null
       },
@@ -65,10 +90,21 @@
       "address": "carrera 15#15-30, Eduardo Santos La Playa, Barranquilla, Colombia",
       "lat": 11.0303082,
       "lon": -74.8673785,
-      "status": "recibido",
+      "status": "resuelto",
       "damageType": "agua",
       "priority": "critica",
       "description": "Se daño el tubo madre y no tenemos agua hace 2 dias"
+    },
+    {
+      "id": "106af895-4fbe-4898-a714-c7863fab0f35",
+      "ccUser": "135456032541",
+      "address": "calle 72#5-1, El Prado, Barranquilla, Colombia",
+      "lat": 10.9685,
+      "lon": -74.7813,
+      "status": "recibido",
+      "damageType": "agua",
+      "priority": "alta",
+      "description": "dgsg"
     }
   ],
   "barrios": [
