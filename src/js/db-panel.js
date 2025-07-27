@@ -50,7 +50,7 @@ function renderTable() {
         <td>${report.dataTime.timeCreateReport}</td>
         <td>${report.description}</td>
         <td>
-          <button class="badge ${statusClass}" data-id="${report.id}">
+          <button id="badge" class="badge ${statusClass}" data-id="${report.id}">
             ${report.status}
           </button>
         </td>
