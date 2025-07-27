@@ -77,10 +77,10 @@
       "contactPhone": null,
       "dataTime": {
         "timeCreateReport": "25/07/2025, 13:24:32",
-        "timeProcessReport": null,
-        "timeFinishReport": null
+        "timeProcessReport": "27/7/2025, 12:28:12 p.m.",
+        "timeFinishReport": "27/7/2025, 12:28:14 p.m."
       },
-      "status": "recibido"
+      "status": "resuelto"
     }
   ],
   "damage": [
@@ -101,7 +101,7 @@
       "address": "calle 72#5-1, El Prado, Barranquilla, Colombia",
       "lat": 10.9685,
       "lon": -74.7813,
-      "status": "recibido",
+      "status": "resuelto",
       "damageType": "agua",
       "priority": "alta",
       "description": "dgsg"
