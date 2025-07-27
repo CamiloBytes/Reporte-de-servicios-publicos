@@ -22,10 +22,10 @@ body {
 
 /* HEADER STYLES */
 .panel-superior {
-    background: linear-gradient(135deg, #d32f2f 0%, #f44336 100%);
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
     color: #ffffff;
     padding: 15px 0;
-    box-shadow: 0 2px 10px rgba(211, 47, 47, 0.3);
+    box-shadow: 0 2px 10px rgba(30, 64, 175, 0.3);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -59,7 +59,7 @@ body {
 }
 
 .logout-btn {
-    background: linear-gradient(135deg, #ff5722 0%, #d84315 100%);
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
     color: white;
     border: none;
     padding: 8px 16px;
@@ -72,7 +72,7 @@ body {
 }
 
 .logout-btn:hover {
-    background: linear-gradient(135deg, #d84315 0%, #bf360c 100%);
+    background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
@@ -103,8 +103,9 @@ main {
     top: 100px;
 }
 
+/* Encabezado del sidebar */
 .sidebar h2 {
-    color: #d32f2f;
+    color: #1e40af;
     font-size: 18px;
     margin-bottom: 20px;
     text-align: center;
@@ -134,7 +135,7 @@ main {
 }
 
 .sidebar ul li button {
-    background: linear-gradient(135deg, #ff5722 0%, #d84315 100%);
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
     color: white;
     padding: 12px;
     border: none;
@@ -147,8 +148,7 @@ main {
 }
 
 .sidebar ul li button:hover {
-    background: linear-gradient(135deg, #d84315 0%, #bf360c 100%);
-    transform: translateY(-1px);
+    background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
 }
 
 /* MAIN CONTENT */
@@ -177,13 +177,12 @@ main {
     background: #f1f1f1;
 }
 
-.tabla-contenedor::-webkit-scrollbar-thumb{
-    background: #d32f2f;
-    border-radius: 4px;
+/* Barra de scroll en tabla */
+.tabla-contenedor::-webkit-scrollbar-thumb {
+    background: #1e40af;
 }
-
-.tabla-contenedor::-webkit-scrollbar-thumb:hover{
-    background: #b71c1c;
+.tabla-contenedor::-webkit-scrollbar-thumb:hover {
+    background: #3b82f6;
 }
 
 /* TABLE STYLES */
@@ -192,8 +191,9 @@ table {
     border-collapse: collapse;
 }
 
+/* Cabecera de tabla */
 thead {
-    background: linear-gradient(135deg, #d32f2f 0%, #f44336 100%);
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
     color: #ffffff;
     position: sticky;
     top: 0;
@@ -237,35 +237,30 @@ tbody tr:hover {
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-/* Estados de los reportes */
+/* Estados */
 .pendiente {
-    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); /* Rojo */
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
 }
-
 .proceso {
-    background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%); /* Amarillo */
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
     color: #000;
 }
-
 .resuelto {
-    background: linear-gradient(135deg, #28a745 0%, #218838 100%); /* Verde */
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
 }
-
 .bg-success {
-    background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
 }
-
 .bg-warning {
-    background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
     color: #000;
 }
 
 .bg-secondary {
     background: linear-gradient(135deg, #757575 0%, #424242 100%);
 }
-
 .bg-danger {
-    background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
 }
 
 /* BUTTON STYLES */
@@ -281,23 +276,22 @@ tbody tr:hover {
     display: inline-block;
 }
 
+/* BOTÓN primario */
 .btn-primary {
-    background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+    background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
     color: white;
 }
-
 .btn-primary:hover {
-    background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
-    transform: translateY(-1px);
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
 }
 
 .btn-success {
-    background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     color: white;
 }
 
 .btn-success:hover {
-    background: linear-gradient(135deg, #388e3c 0%, #2e7d32 100%);
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
     transform: translateY(-1px);
 }
 
@@ -312,7 +306,7 @@ tbody tr:hover {
 
 /* FOOTER */
 .footer {
-    background: linear-gradient(135deg, #d32f2f 0%, #f44336 100%);
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
     color: #fff;
     text-align: center;
     padding: 15px 0;
