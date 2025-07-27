@@ -50,7 +50,7 @@ function renderTable() {
         <td>${report.dataTime.timeCreateReport}</td>
         <td>${report.description}</td>
         <td>
-          <button class="badge ${statusClass}" data-id="${report.id}">
+          <button id="badge" class="badge ${statusClass}" data-id="${report.id}">
             ${report.status}
           </button>
         </td>
@@ -98,6 +98,9 @@ function attachButtonListeners() {
                 };
 
                 await updateReportAndDamage(reportId, updatedReport, updatedDamage);
+
+                // Recargar página únicamente cuando se presiona el botón "recibido"
+                location.reload();
             } else if (button.classList.contains("proceso")) {
                 // Change status from in-process to resolved
                 button.classList.replace("proceso", "resuelto");
@@ -119,9 +122,6 @@ function attachButtonListeners() {
 
                 await updateReportAndDamage(reportId, updatedReport, updatedDamage);
             }
-
-            // Reload page to reflect the changes (could be optimized)
-            location.reload();
         });
     });
 }

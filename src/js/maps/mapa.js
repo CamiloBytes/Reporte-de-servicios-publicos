@@ -7,6 +7,7 @@ const marcadores = {}
 const map = L.map("map", {
     center: [10.9685, -74.7813],
     zoom: 11.5,
+    minZoom:12,
     zoomControl: true,
     scrollWheelZoom: true,
 })

@@ -4,37 +4,67 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AlertFixer</title>
+    <title>Sistema de Reportes de Daños Municipal</title>
     <link rel="stylesheet" href="./src/css/index-styles.css" />
-    <script src="https://kit.fontawesome.com/f40deb3a61.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="icon" href="./src/img/iconic-removebg-preview.png" type="image/x-icon">
 </head>
 
 <body>
     <header class="header">
         <div class="logo-container">
-            <img src="./src/img/iconic-removebg-preview.png" class="logo" alt="AlertFixer logo" />
-            <strong class="brand-name">AlertFixer</strong>
+            <img src="./src/img/iconic-removebg-preview.png" class="logo" alt="Sistema de Reportes logo" />
+            <strong class="brand-name"><i class="fas fa-exclamation-triangle"></i> Reportes de Daños</strong>
         </div>
-        <button onclick="goToLogin()" class="btn-login" id="btn-login">Iniciar Sesión</button>
-
+        <button onclick="goToLogin()" class="btn-login" id="btn-login">
+            <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+        </button>
     </header>
 
     <main>
         <section class="hero">
             <div class="hero-background"></div>
             <div class="hero-content">
+                <div class="hero-title">
+                    <i class="fas fa-shield-alt" style="font-size: 3rem; color: #ffeb3b; margin-bottom: 20px;"></i>
+                    <h1>Sistema Municipal de Reportes de Daños</h1>
+                </div>
+                
                 <p class="hero-paragraph">
-                    Tu voz, sin<span class="highlight-green">costo.</span> Tus quejas, con <span
-                        class="highlight-green">impacto.</span>
+                    Reporta daños en <span class="highlight-accent">infraestructura municipal</span> de manera rápida y eficiente. 
+                    Tu reporte es <span class="highlight-accent">importante</span> para mantener nuestra ciudad segura.
                 </p>
 
-                <button onclick="goToForm()" class="hero-button">Solicitar Servicio</button>
+                <div class="hero-features">
+                    <div class="feature">
+                        <i class="fas fa-clock"></i>
+                        <span>Respuesta 24-48h</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Geolocalización</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Seguimiento en tiempo real</span>
+                    </div>
+                </div>
+
+                <div class="hero-buttons">
+                    <button onclick="goToForm()" class="hero-button primary">
+                        <i class="fas fa-exclamation-triangle"></i> Reportar Daño
+                    </button>
+                </div>
+                
+                <div class="hero-info">
+                    <p><i class="fas fa-info-circle"></i> Servicio gratuito disponible 24/7</p>
+                </div>
             </div>
         </section>
     </main>
 
     <footer class="footer">
-        <p>&copy; 2025 AlertFixer. Todos los derechos reservados.</p>
+        <p><i class="fas fa-copyright"></i> 2025 Sistema de Reportes de Daños - Gestión Municipal. Todos los derechos reservados.</p>
     </footer>
     <script type="module" src="./src/js/main.js"></script>
 </body>
