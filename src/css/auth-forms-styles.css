@@ -360,6 +360,13 @@ footer p {
         gap: 10px;
     }
     
+    .nav-links-container {
+        justify-content: center;
+    }
+    .nav-links {
+        align-items: center;
+    }
+    
     .inputs-container {
         padding: 25px;
         margin: 15px;
