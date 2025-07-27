@@ -1,12 +1,18 @@
 :root {
-    --primary-blue: #1565c0;
-    --light-blue: #2196f3;
-    --hover-blue: #68a7da;
+    --primary-blue: #3b82f6;
+    --hover-blue: #1e40af;
+    --light-blue: #dbeafe;
+    --focus-glow: #dbeafe;
+    --highlight-green: #10b981;
+
+    /* Colores de estado */
+    --success-green: #10b981;
+    --warning-amber: #f59e0b;
+    --danger-red: #ef4444;
+    --info-cyan: #06b6d4;
     --brand-white: #eaf6ea;
     --soft-gray: #f1f1f1;
     --text-dark: #333;
-    --focus-glow: #c4d9ff;
-    --highlight-green: #4caf50;
     --background-dark: #121212;
     --background-light: #f5f5f5;
     --background-gray: #f0f0f0;

@@ -1,11 +1,11 @@
 :root {
     /* Colores del sistema de reportes de daños */
-    --primary-red: #d32f2f;
-    --light-red: #f44336;
-    --dark-red: #b71c1c;
-    --warning-orange: #ff9800;
-    --success-green: #4caf50;
-    --info-blue: #2196f3;
+    --primary-red: #3b82f6;
+    --light-red: #dbeafe;
+    --dark-red: #1e40af;
+    --warning-orange: #f59e0b;
+    --success-green: #10b981;
+    --info-blue: #06b6d4;
     --accent-yellow: #ffeb3b;
     
     /* Colores base */
@@ -16,10 +16,10 @@
     --border-gray: #e0e0e0;
     
     /* Gradientes */
-    --gradient-primary: linear-gradient(135deg, #d32f2f 0%, #f44336 100%);
+    --gradient-primary: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
     --gradient-secondary: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
     --gradient-background: linear-gradient(135deg, #f8f9fa 0%, #e3f2fd 100%);
-    --gradient-hero: linear-gradient(135deg, rgba(211, 47, 47, 0.9) 0%, rgba(244, 67, 54, 0.8) 100%);
+    --gradient-hero: linear-gradient(135deg, rgba(30, 64, 175, 0.9) 0%, rgba(59, 130, 246, 0.8) 100%);
     
     /* Sombras */
     --shadow-light: 0 2px 8px rgba(0,0,0,0.1);
