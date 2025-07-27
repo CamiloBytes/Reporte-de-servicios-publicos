@@ -143,73 +143,7 @@ async function showAvailableUsers() {
     }
 }
 
-function showUsersInfo(users, source) {
-    const infoPanel = document.createElement('div');
-    infoPanel.style.cssText = `
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
-        color: white;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        max-width: 350px;
-        z-index: 1000;
-        font-size: 12px;
-        cursor: pointer;
-    `;
-    
-    let usersHtml = `
-        <div style="margin-bottom: 10px;">
-            <strong><i class="fas fa-info-circle"></i> Usuarios Disponibles</strong>
-            <span style="background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 4px; font-size: 10px; margin-left: 5px;">
-                ${source === 'json-server' ? 'JSON-Server' : 'Modo Prueba'}
-            </span>
-        </div>
-    `;
-    
-    if (source === 'json-server') {
-        users.forEach(user => {
-            if (user.email && user.password) {
-                usersHtml += `
-                    <div style="margin-bottom: 5px;">
-                        <strong>👤 ${user.name || 'Usuario'}:</strong> ${user.email} / ${user.password}
-                    </div>
-                `;
-            }
-        });
-    } else {
-        fallbackUsers.forEach(user => {
-            usersHtml += `
-                <div style="margin-bottom: 5px;">
-                    <strong>👤 ${user.name}:</strong> ${user.email} / ${user.password}
-                </div>
-            `;
-        });
-    }
-    
-    usersHtml += `
-        <div style="font-style: italic; margin-top: 10px; font-size: 10px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 8px;">
-            <i class="fas fa-mouse-pointer"></i> Click para ocultar
-        </div>
-    `;
-    
-    infoPanel.innerHTML = usersHtml;
-    
-    infoPanel.addEventListener('click', () => {
-        infoPanel.remove();
-    });
-    
-    document.body.appendChild(infoPanel);
-    
-    // Auto-ocultar después de 15 segundos
-    setTimeout(() => {
-        if (infoPanel.parentNode) {
-            infoPanel.remove();
-        }
-    }, 15000);
-}
+
 
 function showNotification(message, type = "info") {
     const notification = document.createElement('div');
