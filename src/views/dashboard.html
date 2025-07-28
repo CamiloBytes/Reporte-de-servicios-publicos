@@ -48,21 +48,6 @@
 
     <!-- Scripts en orden específico -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script>
-        // Verificar que json-server esté disponible
-        console.log("Verificando conexión con json-server...");
-        fetch('http://localhost:3000/reports')
-            .then(response => {
-                if (response.ok) {
-                    console.log("✅ JSON Server conectado correctamente");
-                } else {
-                    console.warn("⚠️ JSON Server responde pero con errores");
-                }
-            })
-            .catch(error => {
-                console.error("❌ JSON Server no disponible:", error);
-            });
-    </script>
     <script type="module" src="../js/dashboard.js"></script>
     <script type="module" src="../js/db-panel.js"></script>
     <script type="module" src="../js/maps/mapa.js"></script>
