@@ -48,61 +48,6 @@
 
     <!-- Scripts en orden específico -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    
-    <!-- PROTECCIÓN DE RUTA - Verificación inmediata de autenticación -->
-    <script>
-        // Verificación inmediata de autenticación al cargar la página
-        (function() {
-            const user = localStorage.getItem("user");
-            const token = localStorage.getItem("authToken");
-            
-            // Si no hay datos de autenticación, redirigir inmediatamente
-            if (!user || !token) {
-                console.log("🚫 Acceso denegado: Redirigiendo a login...");
-                window.location.href = './login.html';
-                return;
-            }
-            
-            // Verificar si la sesión ha expirado (24 horas)
-            try {
-                const userData = JSON.parse(user);
-                if (userData.loginTime) {
-                    const loginTime = new Date(userData.loginTime);
-                    const now = new Date();
-                    const hoursDiff = (now - loginTime) / (1000 * 60 * 60);
-                    
-                    if (hoursDiff > 24) {
-                        console.log("🚫 Sesión expirada: Redirigiendo a login...");
-                        localStorage.removeItem("user");
-                        localStorage.removeItem("authToken");
-                        window.location.href = './login.html';
-                        return;
-                    }
-                }
-                
-                console.log("✅ Acceso autorizado al dashboard");
-            } catch (error) {
-                console.error("Error validando sesión:", error);
-                window.location.href = './login.html';
-            }
-        })();
-    </script>
-    
-    <script>
-        // Verificar que json-server esté disponible
-        console.log("Verificando conexión con json-server...");
-        fetch('http://localhost:3000/reports')
-            .then(response => {
-                if (response.ok) {
-                    console.log("✅ JSON Server conectado correctamente");
-                } else {
-                    console.warn("⚠️ JSON Server responde pero con errores");
-                }
-            })
-            .catch(error => {
-                console.error("❌ JSON Server no disponible:", error);
-            });
-    </script>
     <script type="module" src="../js/dashboard.js"></script>
     <script type="module" src="../js/db-panel.js"></script>
     <script type="module" src="../js/maps/mapa.js"></script>
