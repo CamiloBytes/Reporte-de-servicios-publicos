@@ -33,11 +33,28 @@ window.goToForm = function () {
 
 // Esta función la hacemos global para que el HTML pueda usarla con onclick=""
 window.goToDashboard = function () {
-    // Redirige al dashboard del sistema de reportes
-    const currentPath = window.location.pathname;
-    if (currentPath.includes('/views/')) {
-        window.location.href = "dashboard.html";
-    } else {
-        window.location.href = "./src/views/dashboard.html";
+    // Verificar autenticación antes de redirigir al dashboard
+    try {
+        const user = localStorage.getItem("user");
+        const token = localStorage.getItem("authToken");
+        
+        // Si no hay datos de autenticación, redirigir al login
+        if (!user || !token) {
+            console.log("Acceso denegado: Usuario no autenticado");
+            window.goToLogin();
+            return;
+        }
+        
+        // Si está autenticado, proceder con la redirección al dashboard
+        const currentPath = window.location.pathname;
+        if (currentPath.includes('/views/')) {
+            window.location.href = "dashboard.html";
+        } else {
+            window.location.href = "./src/views/dashboard.html";
+        }
+    } catch (error) {
+        console.error("Error verificando autenticación:", error);
+        // En caso de error, redirigir al login por seguridad
+        window.goToLogin();
     }
 }

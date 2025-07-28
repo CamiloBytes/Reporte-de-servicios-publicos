@@ -1,4 +1,35 @@
 import Swal from "sweetalert2";
+import { authentication } from './auth.js';
+
+// PROTECCIÓN DE RUTA - Verificar autenticación al cargar el dashboard
+(async function checkDashboardAccess() {
+    try {
+        // Verificar si el usuario está autenticado
+        if (!authentication.isAuthenticated()) {
+            console.log("Acceso denegado: Usuario no autenticado");
+            // Redirigir inmediatamente al login
+            window.location.href = './login.html';
+            return;
+        }
+
+        // Validar la sesión (verificar si no ha expirado)
+        const isSessionValid = await authentication.validateSession();
+        if (!isSessionValid) {
+            console.log("Acceso denegado: Sesión no válida o expirada");
+            // Limpiar datos y redirigir al login
+            authentication.clearSession();
+            window.location.href = './login.html';
+            return;
+        }
+
+        console.log("✅ Acceso autorizado al dashboard");
+    } catch (error) {
+        console.error("Error verificando acceso al dashboard:", error);
+        // En caso de error, redirigir al login por seguridad
+        window.location.href = './login.html';
+    }
+})();
+
 // Función de cerrar sesión
 window.logout = function() {
     // Mostrar confirmación antes de cerrar sesión
