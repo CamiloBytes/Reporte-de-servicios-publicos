@@ -1,4 +1,9 @@
 import Swal from "sweetalert2";
+import { authentication } from './auth.js';
+
+// Verificar autenticación antes de continuar con la carga del dashboard
+await authentication.requireAuth();
+
 // Función de cerrar sesión
 window.logout = function() {
     // Mostrar confirmación antes de cerrar sesión
